@@ -1,0 +1,334 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7fb;
+    color: #172033;
+    min-height: 100vh;
+}
+
+/* HEADER */
+
+.topbar {
+    height: 72px;
+    background: #ffffff;
+    border-bottom: 1px solid #e8ebf2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7%;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 800;
+    color: #111827;
+}
+
+.logo span {
+    color: #2563eb;
+}
+
+.profile-button {
+    width: 42px;
+    height: 42px;
+    border: 0;
+    border-radius: 50%;
+    background: #eef4ff;
+    cursor: pointer;
+    font-size: 19px;
+}
+
+/* CONTAINER */
+
+.container {
+    width: min(1100px, 92%);
+    margin: 40px auto 120px;
+}
+
+.welcome p {
+    color: #6b7280;
+    margin-bottom: 6px;
+}
+
+.welcome h1 {
+    font-size: 30px;
+    margin-bottom: 28px;
+}
+
+/* SALDO */
+
+.balance-card {
+    background: linear-gradient(135deg, #2563eb, #1749b8);
+    color: white;
+    border-radius: 22px;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 15px 35px rgba(37, 99, 235, 0.22);
+}
+
+.balance-title {
+    opacity: 0.8;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.balance-card h2 {
+    font-size: 34px;
+}
+
+.balance-card button {
+    border: 0;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* AÇÕES */
+
+.quick-actions {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 25px 0;
+}
+
+.action {
+    border: 1px solid #e5e9f2;
+    background: white;
+    border-radius: 18px;
+    padding: 22px 10px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.action:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+}
+
+.action div {
+    font-size: 25px;
+    margin-bottom: 9px;
+}
+
+.action span {
+    font-weight: 600;
+}
+
+/* MOVIMENTAÇÕES */
+
+.transactions {
+    background: white;
+    border: 1px solid #e5e9f2;
+    border-radius: 20px;
+    padding: 25px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-header h2 {
+    font-size: 19px;
+}
+
+.section-header button {
+    border: 0;
+    background: transparent;
+    color: #2563eb;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 55px 20px;
+}
+
+.empty-icon {
+    font-size: 42px;
+    margin-bottom: 15px;
+}
+
+.empty-state h3 {
+    margin-bottom: 7px;
+}
+
+.empty-state p {
+    color: #8a93a3;
+}
+
+/* MENU INFERIOR */
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 76px;
+    background: rgba(255,255,255,0.96);
+    border-top: 1px solid #e5e9f2;
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    align-items: center;
+}
+
+.bottom-nav button {
+    border: 0;
+    background: transparent;
+    color: #7a8495;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+}
+
+.bottom-nav button span {
+    font-size: 20px;
+}
+
+.bottom-nav .active {
+    color: #2563eb;
+    font-weight: bold;
+}
+
+/* CADASTRO */
+
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 15px;
+}
+
+.auth-card {
+    width: min(470px, 100%);
+    background: white;
+    border: 1px solid #e5e9f2;
+    border-radius: 24px;
+    padding: 35px;
+    box-shadow: 0 20px 60px rgba(15,23,42,0.08);
+}
+
+.auth-card .logo {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.auth-card h1 {
+    text-align: center;
+    font-size: 27px;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #7b8494;
+    margin-bottom: 25px;
+}
+
+.auth-card label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 16px 0 7px;
+}
+
+.auth-card input,
+.auth-card select {
+    width: 100%;
+    height: 48px;
+    border: 1px solid #dfe4ec;
+    border-radius: 11px;
+    padding: 0 14px;
+    font-size: 15px;
+    outline: none;
+    background: white;
+}
+
+.auth-card input:focus,
+.auth-card select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.10);
+}
+
+.primary-button {
+    width: 100%;
+    height: 50px;
+    border: 0;
+    border-radius: 11px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 25px;
+}
+
+.primary-button:hover {
+    background: #1d4ed8;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+    color: #727b8b;
+    font-size: 14px;
+}
+
+.login-link a {
+    color: #2563eb;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+#message {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+/* CELULAR */
+
+@media (max-width: 700px) {
+
+    .topbar {
+        padding: 0 5%;
+    }
+
+    .container {
+        margin-top: 25px;
+    }
+
+    .welcome h1 {
+        font-size: 25px;
+    }
+
+    .quick-actions {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .bottom-nav {
+        gap: 25px;
+    }
+
+    .auth-card {
+        padding: 25px 20px;
+    }
+}
