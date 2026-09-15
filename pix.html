@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>PIX — BancoPix</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+</head>
+
+<body>
+
+    <header class="topbar">
+
+        <div class="logo">
+            Banco<span>Pix</span>
+        </div>
+
+        <button
+            class="profile-button"
+            onclick="location.href='index.html'"
+        >
+            ←
+        </button>
+
+    </header>
+
+
+    <main class="container">
+
+        <section class="welcome">
+
+            <p>BancoPix</p>
+
+            <h1>PIX</h1>
+
+        </section>
+
+
+        <section class="quick-actions">
+
+            <button
+                class="action"
+                id="pixEnviar"
+                type="button"
+            >
+
+                <div>📤</div>
+
+                <span>
+                    Enviar PIX
+                </span>
+
+            </button>
+
+
+            <button
+                class="action"
+                id="pixReceber"
+                type="button"
+            >
+
+                <div>📥</div>
+
+                <span>
+                    Receber PIX
+                </span>
+
+            </button>
+
+
+            <button
+                class="action"
+                id="pixChave"
+                type="button"
+            >
+
+                <div>🔑</div>
+
+                <span>
+                    Minha chave
+                </span>
+
+            </button>
+
+
+            <button
+                class="action"
+                id="pixQr"
+                type="button"
+            >
+
+                <div>▦</div>
+
+                <span>
+                    QR Code
+                </span>
+
+            </button>
+
+        </section>
+
+
+        <section class="transactions">
+
+            <div class="section-header">
+
+                <h2>
+                    PIX
+                </h2>
+
+            </div>
+
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    ⚡
+                </div>
+
+                <h3>
+                    PIX ainda não conectado
+                </h3>
+
+                <p>
+                    A API Pix será conectada posteriormente.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <nav class="bottom-nav">
+
+        <button
+            type="button"
+            onclick="location.href='index.html'"
+        >
+
+            <span>⌂</span>
+
+            Início
+
+        </button>
+
+
+        <button
+            class="active"
+            type="button"
+        >
+
+            <span>⚡</span>
+
+            PIX
+
+        </button>
+
+
+        <button type="button">
+
+            <span>📋</span>
+
+            Extrato
+
+        </button>
+
+
+        <button type="button">
+
+            <span>👤</span>
+
+            Perfil
+
+        </button>
+
+    </nav>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
