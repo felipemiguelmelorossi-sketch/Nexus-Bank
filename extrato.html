@@ -55,7 +55,7 @@
         </section>
 
 
-        <!-- RESUMO -->
+        <!-- SALDO -->
 
         <section class="balance-card">
 
@@ -74,7 +74,7 @@
         </section>
 
 
-        <!-- FILTROS -->
+        <!-- MOVIMENTAÇÕES -->
 
         <section class="transactions">
 
@@ -132,15 +132,15 @@
                 <div class="empty-state">
 
                     <div class="empty-icon">
-                        📋
+                        ⏳
                     </div>
 
                     <h3>
-                        Nenhuma movimentação
+                        Carregando extrato...
                     </h3>
 
                     <p>
-                        Suas transações aparecerão aqui.
+                        Buscando suas movimentações.
                     </p>
 
                 </div>
@@ -152,7 +152,7 @@
     </main>
 
 
-    <!-- MENU -->
+    <!-- MENU INFERIOR -->
 
     <nav class="bottom-nav">
 
@@ -192,9 +192,7 @@
         </button>
 
 
-        <button
-            type="button"
-        >
+        <button type="button">
 
             <span>👤</span>
 
@@ -207,64 +205,41 @@
 
     <script>
 
+        // =====================================================
+        // BANCO PIX — EXTRATO
+        // =====================================================
+
         const lista =
             document.getElementById(
                 "listaMovimentacoes"
             );
-
 
         const saldo =
             document.getElementById(
                 "extratoSaldo"
             );
 
-
         const filtros =
             document.querySelectorAll(
                 ".filtro"
             );
 
+        const limparFiltro =
+            document.getElementById(
+                "limparFiltro"
+            );
 
-        /*
-         * Dados de demonstração.
-         *
-         * Não representam dinheiro real.
-         * Depois serão substituídos pelas
-         * movimentações vindas do banco/API.
-         */
 
-        const movimentacoes = [
+        let movimentacoes = [];
 
-            {
-                tipo: "entrada",
-                titulo: "PIX recebido",
-                descricao: "Demonstração",
-                valor: 150.00,
-                data: "Hoje, 10:42"
-            },
 
-            {
-                tipo: "saida",
-                titulo: "PIX enviado",
-                descricao: "Demonstração",
-                valor: 35.90,
-                data: "Ontem, 18:21"
-            },
-
-            {
-                tipo: "entrada",
-                titulo: "PIX recebido",
-                descricao: "Demonstração",
-                valor: 80.00,
-                data: "12/09/2026, 14:05"
-            }
-
-        ];
-
+        // =====================================================
+        // FORMATAR VALOR
+        // =====================================================
 
         function formatarValor(valor) {
 
-            return valor.toLocaleString(
+            return Number(valor).toLocaleString(
                 "pt-BR",
                 {
                     style: "currency",
@@ -274,6 +249,37 @@
 
         }
 
+
+        // =====================================================
+        // FORMATAR DATA
+        // =====================================================
+
+        function formatarData(data) {
+
+            if (!data) {
+                return "Data não informada";
+            }
+
+            const dataObjeto =
+                new Date(data);
+
+            return dataObjeto.toLocaleString(
+                "pt-BR",
+                {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit"
+                }
+            );
+
+        }
+
+
+        // =====================================================
+        // MOSTRAR MOVIMENTAÇÕES
+        // =====================================================
 
         function mostrarMovimentacoes(
             filtro = "todos"
@@ -309,8 +315,7 @@
                         </h3>
 
                         <p>
-                            Não encontramos movimentações
-                            nesse filtro.
+                            Não encontramos movimentações nesse filtro.
                         </p>
 
                     </div>
@@ -338,11 +343,21 @@
                         "movimentacao";
 
 
-                    const sinal =
+                    const entrada =
                         movimentacao.tipo ===
-                        "entrada"
+                        "entrada";
+
+
+                    const sinal =
+                        entrada
                             ? "+"
                             : "-";
+
+
+                    const icone =
+                        entrada
+                            ? "↓"
+                            : "↑";
 
 
                     item.innerHTML = `
@@ -350,28 +365,28 @@
                         <div class="movimentacao-info">
 
                             <div class="movimentacao-icon">
-
-                                ${
-                                    movimentacao.tipo ===
-                                    "entrada"
-                                        ? "↓"
-                                        : "↑"
-                                }
-
+                                ${icone}
                             </div>
 
                             <div>
 
                                 <strong>
-                                    ${movimentacao.titulo}
+                                    ${escaparHTML(
+                                        movimentacao.titulo
+                                    )}
                                 </strong>
 
                                 <p>
-                                    ${movimentacao.descricao}
+                                    ${escaparHTML(
+                                        movimentacao.descricao ||
+                                        "Sem descrição"
+                                    )}
                                 </p>
 
                                 <small>
-                                    ${movimentacao.data}
+                                    ${formatarData(
+                                        movimentacao.created_at
+                                    )}
                                 </small>
 
                             </div>
@@ -379,10 +394,12 @@
                         </div>
 
 
-                        <strong class="
-                            movimentacao-valor
-                            ${movimentacao.tipo}
-                        ">
+                        <strong
+                            class="
+                                movimentacao-valor
+                                ${movimentacao.tipo}
+                            "
+                        >
 
                             ${sinal}
                             ${formatarValor(
@@ -402,6 +419,10 @@
         }
 
 
+        // =====================================================
+        // CALCULAR SALDO
+        // =====================================================
+
         function calcularSaldo() {
 
             let total = 0;
@@ -410,18 +431,22 @@
             movimentacoes.forEach(
                 movimentacao => {
 
+                    const valor =
+                        Number(
+                            movimentacao.valor
+                        );
+
+
                     if (
                         movimentacao.tipo ===
                         "entrada"
                     ) {
 
-                        total +=
-                            movimentacao.valor;
+                        total += valor;
 
                     } else {
 
-                        total -=
-                            movimentacao.valor;
+                        total -= valor;
 
                     }
 
@@ -435,6 +460,117 @@
         }
 
 
+        // =====================================================
+        // BUSCAR TRANSAÇÕES NO SUPABASE
+        // =====================================================
+
+        async function carregarExtrato() {
+
+            try {
+
+                const {
+                    data: {
+                        session
+                    },
+                    error: sessionError
+                } =
+                    await supabaseClient.auth
+                        .getSession();
+
+
+                if (sessionError) {
+                    throw sessionError;
+                }
+
+
+                // Usuário não está logado
+
+                if (!session) {
+
+                    window.location.href =
+                        "login.html";
+
+                    return;
+
+                }
+
+
+                // Buscar somente as transações
+                // pertencentes ao usuário logado
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient
+                        .from("transactions")
+                        .select("*")
+                        .eq(
+                            "user_id",
+                            session.user.id
+                        )
+                        .order(
+                            "created_at",
+                            {
+                                ascending: false
+                            }
+                        );
+
+
+                if (error) {
+                    throw error;
+                }
+
+
+                movimentacoes =
+                    data || [];
+
+
+                mostrarMovimentacoes();
+
+                calcularSaldo();
+
+
+            } catch (error) {
+
+                console.error(
+                    "Erro ao carregar extrato:",
+                    error
+                );
+
+
+                lista.innerHTML = `
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            ⚠️
+                        </div>
+
+                        <h3>
+                            Não foi possível carregar
+                        </h3>
+
+                        <p>
+                            ${escaparHTML(
+                                error.message ||
+                                "Ocorreu um erro."
+                            )}
+                        </p>
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+        // =====================================================
+        // FILTROS
+        // =====================================================
+
         filtros.forEach(
             filtro => {
 
@@ -443,11 +579,13 @@
                     () => {
 
                         filtros.forEach(
-                            botao =>
-                                botao.classList
-                                    .remove(
-                                        "ativo"
-                                    )
+                            botao => {
+
+                                botao.classList.remove(
+                                    "ativo"
+                                );
+
+                            }
                         );
 
 
@@ -467,38 +605,66 @@
         );
 
 
-        document
-            .getElementById("limparFiltro")
-            .addEventListener(
-                "click",
-                () => {
+        // =====================================================
+        // BOTÃO TODAS
+        // =====================================================
 
-                    filtros.forEach(
-                        botao =>
-                            botao.classList
-                                .remove(
-                                    "ativo"
-                                )
+        limparFiltro.addEventListener(
+            "click",
+            () => {
+
+                filtros.forEach(
+                    botao => {
+
+                        botao.classList.remove(
+                            "ativo"
+                        );
+
+                    }
+                );
+
+
+                document
+                    .querySelector(
+                        '[data-filtro="todos"]'
+                    )
+                    .classList.add(
+                        "ativo"
                     );
 
 
-                    document
-                        .querySelector(
-                            '[data-filtro="todos"]'
-                        )
-                        .classList
-                        .add("ativo");
+                mostrarMovimentacoes(
+                    "todos"
+                );
+
+            }
+        );
 
 
-                    mostrarMovimentacoes();
+        // =====================================================
+        // PROTEÇÃO CONTRA HTML
+        // =====================================================
 
-                }
-            );
+        function escaparHTML(valor) {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+            div.textContent =
+                String(valor ?? "");
+
+            return div.innerHTML;
+
+        }
 
 
-        mostrarMovimentacoes();
+        // =====================================================
+        // INICIAR
+        // =====================================================
 
-        calcularSaldo();
+        carregarExtrato();
 
     </script>
 
