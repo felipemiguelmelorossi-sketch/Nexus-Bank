@@ -4,85 +4,377 @@
     box-sizing: border-box;
 }
 
+:root {
+    --purple: #5b21b6;
+    --purple-dark: #4c1d95;
+    --purple-light: #ede9fe;
+    --text: #171717;
+    --muted: #737373;
+    --border: #e5e5e5;
+    --background: #f7f7f7;
+    --white: #ffffff;
+}
+
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f5f7fb;
-    color: #172033;
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background: var(--background);
+
+    color: var(--text);
+
     min-height: 100vh;
 }
 
 
-/* =========================================
-   HEADER
-========================================= */
+/* =====================================================
+   MARCA
+===================================================== */
+
+.brand {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: #171717;
+}
+
+.brand span {
+    color: var(--purple);
+}
+
+
+/* =====================================================
+   AUTENTICAÇÃO
+===================================================== */
+
+.auth-page {
+    background:
+        linear-gradient(
+            180deg,
+            #fafafa 0%,
+            #f5f5f5 100%
+        );
+}
+
+.auth-container {
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 32px 18px;
+}
+
+.auth-card {
+    width: min(430px, 100%);
+
+    background: var(--white);
+
+    border-radius: 24px;
+
+    padding: 38px;
+
+    border: 1px solid #eaeaea;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0, 0, 0, 0.07);
+}
+
+.auth-card-large {
+    width: min(500px, 100%);
+}
+
+
+/* =====================================================
+   CABEÇALHO
+===================================================== */
+
+.auth-card .brand {
+    margin-bottom: 42px;
+}
+
+.auth-header {
+    margin-bottom: 28px;
+}
+
+.auth-header h1 {
+    font-size: 28px;
+
+    line-height: 1.15;
+
+    letter-spacing: -0.7px;
+
+    margin-bottom: 9px;
+}
+
+.auth-header p {
+    color: var(--muted);
+
+    font-size: 15px;
+}
+
+
+/* =====================================================
+   CAMPOS
+===================================================== */
+
+.field {
+    margin-bottom: 18px;
+}
+
+.field label {
+    display: block;
+
+    font-size: 14px;
+
+    font-weight: 650;
+
+    margin-bottom: 8px;
+}
+
+.field input,
+.field select {
+    width: 100%;
+
+    height: 52px;
+
+    border: 1px solid #d9d9d9;
+
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    padding:
+        0 15px;
+
+    font-size: 15px;
+
+    color: #171717;
+
+    outline: none;
+
+    transition:
+        border-color 0.18s,
+        box-shadow 0.18s;
+}
+
+.field input::placeholder {
+    color: #a3a3a3;
+}
+
+.field input:focus,
+.field select:focus {
+    border-color: var(--purple);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(91, 33, 182, 0.10);
+}
+
+.field small {
+    display: block;
+
+    color: #8a8a8a;
+
+    font-size: 12px;
+
+    margin-top: 7px;
+}
+
+
+/* =====================================================
+   BOTÃO
+===================================================== */
+
+.primary-button {
+    width: 100%;
+
+    height: 52px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: var(--purple);
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    margin-top: 8px;
+
+    transition:
+        background 0.18s,
+        transform 0.18s;
+}
+
+.primary-button:hover {
+    background: var(--purple-dark);
+}
+
+.primary-button:active {
+    transform: scale(0.99);
+}
+
+.primary-button:disabled {
+    opacity: 0.6;
+
+    cursor: not-allowed;
+}
+
+
+/* =====================================================
+   MENSAGENS
+===================================================== */
+
+.form-message {
+    min-height: 20px;
+
+    text-align: center;
+
+    font-size: 13px;
+
+    margin-top: 15px;
+}
+
+.form-message.success {
+    color: #15803d;
+}
+
+.form-message.error {
+    color: #dc2626;
+}
+
+
+/* =====================================================
+   RODAPÉ DO LOGIN
+===================================================== */
+
+.auth-footer {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 5px;
+
+    margin-top: 25px;
+
+    font-size: 14px;
+
+    color: var(--muted);
+}
+
+.auth-footer a {
+    color: var(--purple);
+
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+
+/* =====================================================
+   NEXUS BANK — PAINEL
+===================================================== */
 
 .topbar {
     height: 72px;
+
     background: #ffffff;
-    border-bottom: 1px solid #e8ebf2;
+
+    border-bottom: 1px solid var(--border);
+
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
+
     padding: 0 7%;
 }
 
 .logo {
     font-size: 25px;
+
     font-weight: 800;
-    color: #111827;
+
+    color: #171717;
 }
 
 .logo span {
-    color: #2563eb;
+    color: var(--purple);
 }
 
 .profile-button {
     width: 42px;
+
     height: 42px;
-    border: 0;
+
+    border: 1px solid #e5e5e5;
+
     border-radius: 50%;
-    background: #eef4ff;
+
+    background: white;
+
+    color: #525252;
+
     cursor: pointer;
-    font-size: 19px;
-    transition: 0.2s;
-}
 
-.profile-button:hover {
-    background: #dce9ff;
-    transform: scale(1.04);
+    font-size: 18px;
 }
 
 
-/* =========================================
-   CONTAINER
-========================================= */
+/* =====================================================
+   CONTEÚDO
+===================================================== */
 
 .container {
     width: min(1100px, 92%);
+
     margin: 40px auto 120px;
 }
 
 .welcome p {
-    color: #6b7280;
+    color: var(--muted);
+
     margin-bottom: 6px;
 }
 
 .welcome h1 {
     font-size: 30px;
+
     margin-bottom: 10px;
 }
 
 
-/* =========================================
+/* =====================================================
    SALDO
-========================================= */
+===================================================== */
 
 .balance-card {
-    background: linear-gradient(
-        135deg,
-        #2563eb,
-        #1749b8
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #5b21b6,
+            #4c1d95
+        );
 
     color: white;
 
@@ -91,19 +383,23 @@ body {
     padding: 30px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 
     box-shadow:
         0 15px 35px
-        rgba(37, 99, 235, 0.22);
+        rgba(91, 33, 182, 0.20);
 
     margin-top: 28px;
 }
 
 .balance-title {
     opacity: 0.8;
+
     font-size: 14px;
+
     margin-bottom: 10px;
 }
 
@@ -113,10 +409,14 @@ body {
 
 .balance-card button {
     border: 0;
-    background: rgba(255, 255, 255, 0.15);
+
+    background:
+        rgba(255, 255, 255, 0.14);
+
     color: white;
 
     width: 44px;
+
     height: 44px;
 
     border-radius: 50%;
@@ -124,18 +424,12 @@ body {
     cursor: pointer;
 
     font-size: 18px;
-
-    transition: 0.2s;
-}
-
-.balance-card button:hover {
-    background: rgba(255, 255, 255, 0.25);
 }
 
 
-/* =========================================
+/* =====================================================
    AÇÕES
-========================================= */
+===================================================== */
 
 .quick-actions {
     display: grid;
@@ -149,9 +443,11 @@ body {
 }
 
 .action {
-    border: 1px solid #e5e9f2;
+    border: 1px solid var(--border);
 
     background: white;
+
+    color: #171717;
 
     border-radius: 18px;
 
@@ -163,18 +459,21 @@ body {
 }
 
 .action:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
 
     box-shadow:
         0 10px 25px
         rgba(0, 0, 0, 0.06);
 
-    border-color: #d4def3;
+    border-color: #d4d4d4;
 }
 
 .action div {
     font-size: 25px;
+
     margin-bottom: 9px;
+
+    filter: grayscale(1);
 }
 
 .action span {
@@ -182,14 +481,14 @@ body {
 }
 
 
-/* =========================================
-   MOVIMENTAÇÕES
-========================================= */
+/* =====================================================
+   TRANSAÇÕES
+===================================================== */
 
 .transactions {
     background: white;
 
-    border: 1px solid #e5e9f2;
+    border: 1px solid var(--border);
 
     border-radius: 20px;
 
@@ -213,7 +512,7 @@ body {
 
     background: transparent;
 
-    color: #2563eb;
+    color: var(--purple);
 
     cursor: pointer;
 
@@ -221,9 +520,9 @@ body {
 }
 
 
-/* =========================================
+/* =====================================================
    ESTADO VAZIO
-========================================= */
+===================================================== */
 
 .empty-state {
     text-align: center;
@@ -235,6 +534,8 @@ body {
     font-size: 42px;
 
     margin-bottom: 15px;
+
+    filter: grayscale(1);
 }
 
 .empty-state h3 {
@@ -242,27 +543,29 @@ body {
 }
 
 .empty-state p {
-    color: #8a93a3;
+    color: #8a8a8a;
 }
 
 
-/* =========================================
+/* =====================================================
    MENU INFERIOR
-========================================= */
+===================================================== */
 
 .bottom-nav {
     position: fixed;
 
     bottom: 0;
+
     left: 0;
+
     right: 0;
 
     height: 76px;
 
     background:
-        rgba(255, 255, 255, 0.96);
+        rgba(255, 255, 255, 0.97);
 
-    border-top: 1px solid #e5e9f2;
+    border-top: 1px solid var(--border);
 
     display: flex;
 
@@ -280,7 +583,7 @@ body {
 
     background: transparent;
 
-    color: #7a8495;
+    color: #737373;
 
     cursor: pointer;
 
@@ -293,239 +596,29 @@ body {
     gap: 5px;
 
     font-size: 12px;
-
-    transition: 0.2s;
-}
-
-.bottom-nav button:hover {
-    color: #2563eb;
 }
 
 .bottom-nav button span {
     font-size: 20px;
+
+    filter: grayscale(1);
 }
 
 .bottom-nav .active {
-    color: #2563eb;
+    color: var(--purple);
 
     font-weight: bold;
 }
 
 
-/* =========================================
-   AUTENTICAÇÃO
-========================================= */
-
-.auth-container {
-    min-height: 100vh;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 30px 15px;
-}
-
-.auth-card {
-    width: min(470px, 100%);
-
-    background: white;
-
-    border: 1px solid #e5e9f2;
-
-    border-radius: 24px;
-
-    padding: 35px;
-
-    box-shadow:
-        0 20px 60px
-        rgba(15, 23, 42, 0.08);
-}
-
-.auth-card .logo {
-    text-align: center;
-
-    margin-bottom: 25px;
-}
-
-.auth-card h1 {
-    text-align: center;
-
-    font-size: 27px;
-
-    margin-bottom: 8px;
-}
-
-.subtitle {
-    text-align: center;
-
-    color: #7b8494;
-
-    margin-bottom: 25px;
-}
-
-.auth-card label {
-    display: block;
-
-    font-size: 14px;
-
-    font-weight: 600;
-
-    margin: 16px 0 7px;
-}
-
-.auth-card input,
-.auth-card select {
-    width: 100%;
-
-    height: 48px;
-
-    border: 1px solid #dfe4ec;
-
-    border-radius: 11px;
-
-    padding: 0 14px;
-
-    font-size: 15px;
-
-    outline: none;
-
-    background: white;
-
-    transition: 0.2s;
-}
-
-.auth-card input:focus,
-.auth-card select:focus {
-    border-color: #2563eb;
-
-    box-shadow:
-        0 0 0 3px
-        rgba(37, 99, 235, 0.10);
-}
-
-
-/* =========================================
-   BOTÃO PRINCIPAL
-========================================= */
-
-.primary-button {
-    width: 100%;
-
-    height: 50px;
-
-    border: 0;
-
-    border-radius: 11px;
-
-    background: #2563eb;
-
-    color: white;
-
-    font-size: 16px;
-
-    font-weight: 700;
-
-    cursor: pointer;
-
-    margin-top: 25px;
-
-    transition: 0.2s;
-}
-
-.primary-button:hover {
-    background: #1d4ed8;
-}
-
-.primary-button:disabled {
-    opacity: 0.65;
-
-    cursor: not-allowed;
-}
-
-
-/* =========================================
-   BOTÃO SECUNDÁRIO
-========================================= */
-
-.secondary-button {
-    width: 100%;
-
-    height: 50px;
-
-    border: 1px solid #dfe4ec;
-
-    border-radius: 11px;
-
-    background: white;
-
-    color: #374151;
-
-    font-size: 15px;
-
-    font-weight: 700;
-
-    cursor: pointer;
-
-    margin-top: 10px;
-
-    transition: 0.2s;
-}
-
-.secondary-button:hover {
-    background: #f5f7fb;
-}
-
-
-/* =========================================
-   LINKS / MENSAGENS
-========================================= */
-
-.login-link {
-    text-align: center;
-
-    margin-top: 20px;
-
-    color: #727b8b;
-
-    font-size: 14px;
-}
-
-.login-link a {
-    color: #2563eb;
-
-    font-weight: 700;
-
-    text-decoration: none;
-}
-
-.login-link a:hover {
-    text-decoration: underline;
-}
-
-#message,
-#loginMessage,
-#pixMessage,
-#copyMessage,
-#confirmMessage {
-    text-align: center;
-
-    margin-top: 15px;
-
-    font-size: 14px;
-}
-
-
-/* =========================================
+/* =====================================================
    CONFIRMAÇÃO PIX
-========================================= */
+===================================================== */
 
 .pix-confirm-box {
-    background: #f7f9fc;
+    background: #fafafa;
 
-    border: 1px solid #e5e9f2;
+    border: 1px solid var(--border);
 
     border-radius: 16px;
 
@@ -535,7 +628,7 @@ body {
 }
 
 .pix-confirm-label {
-    color: #7b8494;
+    color: #737373;
 
     font-size: 13px;
 
@@ -555,9 +648,9 @@ body {
 }
 
 
-/* =========================================
-   QR CODE / RECEBER PIX
-========================================= */
+/* =====================================================
+   QR CODE
+===================================================== */
 
 .pix-qr {
     display: flex;
@@ -569,17 +662,18 @@ body {
 
 .qr-placeholder {
     width: 180px;
+
     height: 180px;
 
-    border: 8px solid #111827;
+    border: 8px solid #171717;
 
     background:
         repeating-linear-gradient(
             45deg,
             #ffffff 0,
             #ffffff 8px,
-            #111827 8px,
-            #111827 16px
+            #171717 8px,
+            #171717 16px
         );
 
     display: flex;
@@ -589,16 +683,12 @@ body {
     justify-content: center;
 
     font-size: 0;
-
-    box-shadow:
-        0 8px 25px
-        rgba(0, 0, 0, 0.08);
 }
 
 
-/* =========================================
+/* =====================================================
    EXTRATO
-========================================= */
+===================================================== */
 
 .extrato-filtros {
     display: flex;
@@ -613,11 +703,11 @@ body {
 }
 
 .filtro {
-    border: 1px solid #e1e6ef;
+    border: 1px solid #e1e1e1;
 
     background: #ffffff;
 
-    color: #687386;
+    color: #737373;
 
     border-radius: 20px;
 
@@ -628,22 +718,14 @@ body {
     white-space: nowrap;
 
     font-weight: 600;
-
-    transition: 0.2s;
-}
-
-.filtro:hover {
-    border-color: #2563eb;
-
-    color: #2563eb;
 }
 
 .filtro.ativo {
-    background: #2563eb;
+    background: var(--purple);
 
     color: #ffffff;
 
-    border-color: #2563eb;
+    border-color: var(--purple);
 }
 
 .movimentacao {
@@ -657,7 +739,7 @@ body {
 
     padding: 18px 0;
 
-    border-bottom: 1px solid #edf0f5;
+    border-bottom: 1px solid #ededed;
 }
 
 .movimentacao:last-child {
@@ -676,15 +758,16 @@ body {
 
 .movimentacao-icon {
     width: 45px;
+
     height: 45px;
 
     flex-shrink: 0;
 
     border-radius: 50%;
 
-    background: #eef4ff;
+    background: var(--purple-light);
 
-    color: #2563eb;
+    color: var(--purple);
 
     display: flex;
 
@@ -692,7 +775,7 @@ body {
 
     justify-content: center;
 
-    font-size: 22px;
+    font-size: 20px;
 
     font-weight: bold;
 }
@@ -704,7 +787,7 @@ body {
 }
 
 .movimentacao-info p {
-    color: #737d8e;
+    color: #737373;
 
     font-size: 13px;
 
@@ -712,7 +795,7 @@ body {
 }
 
 .movimentacao-info small {
-    color: #9aa2af;
+    color: #a3a3a3;
 
     font-size: 12px;
 }
@@ -732,9 +815,9 @@ body {
 }
 
 
-/* =========================================
+/* =====================================================
    CELULAR
-========================================= */
+===================================================== */
 
 @media (max-width: 700px) {
 
@@ -760,7 +843,11 @@ body {
     }
 
     .auth-card {
-        padding: 25px 20px;
+        padding: 28px 21px;
+    }
+
+    .auth-card .brand {
+        margin-bottom: 32px;
     }
 
     .balance-card {
@@ -774,6 +861,7 @@ body {
     .transactions {
         padding: 20px;
     }
+
 }
 
 
