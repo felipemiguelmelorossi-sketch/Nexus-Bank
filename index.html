@@ -1,108 +1,230 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>BancoPix</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
 </head>
 
 <body>
 
     <header class="topbar">
+
         <div class="logo">
             Banco<span>Pix</span>
         </div>
 
-        <button class="profile-button">👤</button>
+        <button
+            class="profile-button"
+            id="logoutButton"
+            title="Sair"
+        >
+            👤
+        </button>
+
     </header>
+
 
     <main class="container">
 
         <section class="welcome">
+
             <p>Olá! 👋</p>
-            <h1>Bem-vindo ao BancoPix</h1>
+
+            <h1>
+                Bem-vindo ao BancoPix
+            </h1>
+
+            <p data-user-email></p>
+
         </section>
+
+
+        <!-- SALDO -->
 
         <section class="balance-card">
 
             <div>
-                <p class="balance-title">Saldo disponível</p>
-                <h2 id="balance">R$ 0,00</h2>
+
+                <p class="balance-title">
+                    Saldo disponível
+                </p>
+
+                <h2 id="balance">
+                    R$ 0,00
+                </h2>
+
             </div>
 
-            <button id="toggleBalance">👁️</button>
+            <button
+                id="toggleBalance"
+                type="button"
+                aria-label="Mostrar ou ocultar saldo"
+            >
+                👁️
+            </button>
 
         </section>
+
+
+        <!-- AÇÕES -->
 
         <section class="quick-actions">
 
-            <button class="action">
+            <button
+                class="action"
+                type="button"
+            >
+
                 <div>⚡</div>
-                <span>PIX</span>
+
+                <span>
+                    PIX
+                </span>
+
             </button>
 
-            <button class="action">
+
+            <button
+                class="action"
+                type="button"
+            >
+
                 <div>💸</div>
-                <span>Transferir</span>
+
+                <span>
+                    Transferir
+                </span>
+
             </button>
 
-            <button class="action">
+
+            <button
+                class="action"
+                type="button"
+            >
+
                 <div>📥</div>
-                <span>Receber</span>
+
+                <span>
+                    Receber
+                </span>
+
             </button>
 
-            <button class="action">
+
+            <button
+                class="action"
+                type="button"
+            >
+
                 <div>📋</div>
-                <span>Extrato</span>
+
+                <span>
+                    Extrato
+                </span>
+
             </button>
 
         </section>
+
+
+        <!-- MOVIMENTAÇÕES -->
 
         <section class="transactions">
 
             <div class="section-header">
-                <h2>Últimas movimentações</h2>
-                <button>Ver tudo</button>
+
+                <h2>
+                    Últimas movimentações
+                </h2>
+
+                <button type="button">
+                    Ver tudo
+                </button>
+
             </div>
 
+
             <div class="empty-state">
-                <div class="empty-icon">💳</div>
-                <h3>Nenhuma movimentação</h3>
-                <p>Suas transações aparecerão aqui.</p>
+
+                <div class="empty-icon">
+                    💳
+                </div>
+
+                <h3>
+                    Nenhuma movimentação
+                </h3>
+
+                <p>
+                    Suas transações aparecerão aqui.
+                </p>
+
             </div>
 
         </section>
 
     </main>
 
+
+    <!-- MENU -->
+
     <nav class="bottom-nav">
 
-        <button class="active">
+        <button
+            class="active"
+            type="button"
+        >
+
             <span>⌂</span>
+
             Início
+
         </button>
 
-        <button>
+
+        <button type="button">
+
             <span>⚡</span>
+
             PIX
+
         </button>
 
-        <button>
+
+        <button type="button">
+
             <span>📋</span>
+
             Extrato
+
         </button>
 
-        <button>
+
+        <button type="button">
+
             <span>👤</span>
+
             Perfil
+
         </button>
 
     </nav>
 
+
     <script src="script.js"></script>
 
 </body>
+
 </html>
