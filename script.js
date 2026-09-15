@@ -1,46 +1,12 @@
-// BancoPix
-// Esta versão é apenas o protótipo.
-// O PIX real será conectado posteriormente através de uma API Pix segura.
-
 document.addEventListener("DOMContentLoaded", () => {
-
-    // =========================
-    // SALDO
-    // =========================
-
-    const balance = document.getElementById("balance");
-    const toggleBalance = document.getElementById("toggleBalance");
-
-    let balanceVisible = true;
-
-    if (toggleBalance && balance) {
-
-        toggleBalance.addEventListener("click", () => {
-
-            balanceVisible = !balanceVisible;
-
-            if (balanceVisible) {
-                balance.textContent = "R$ 0,00";
-                toggleBalance.textContent = "👁️";
-            } else {
-                balance.textContent = "R$ •••••";
-                toggleBalance.textContent = "🙈";
-            }
-
-        });
-
-    }
-
-    // =========================
-    // CADASTRO
-    // =========================
 
     const registerForm = document.getElementById("registerForm");
     const message = document.getElementById("message");
+    const registerButton = document.getElementById("registerButton");
 
     if (registerForm) {
 
-        registerForm.addEventListener("submit", (event) => {
+        registerForm.addEventListener("submit", async (event) => {
 
             event.preventDefault();
 
@@ -53,36 +19,69 @@ document.addEventListener("DOMContentLoaded", () => {
             const senha = document.getElementById("senha").value;
             const tipoPix = document.getElementById("tipoPix").value;
 
-            if (
-                !nome ||
-                !cpf ||
-                !cep ||
-                !dataNascimento ||
-                !email ||
-                !senha ||
-                !tipoPix
-            ) {
-                message.textContent = "Preencha todos os campos.";
-                message.style.color = "#dc2626";
-                return;
-            }
+            message.textContent = "";
+            registerButton.disabled = true;
+            registerButton.textContent = "Criando conta...";
 
-            if (cpf.length < 11) {
-                message.textContent = "Digite um CPF válido.";
-                message.style.color = "#dc2626";
-                return;
-            }
+            try {
 
-            if (senha.length < 6) {
+                // Cria o usuário no Supabase Auth
+                const { data, error } =
+                    await supabaseClient.auth.signUp({
+                        email: email,
+                        password: senha
+                    });
+
+                if (error) {
+                    throw error;
+                }
+
+                if (!data.user) {
+                    throw new Error(
+                        "Não foi possível criar o usuário."
+                    );
+                }
+
+                // Salva o perfil associado ao usuário
+                const { error: profileError } =
+                    await supabaseClient
+                        .from("profiles")
+                        .insert({
+                            id: data.user.id,
+                            nome_completo: nome,
+                            cpf: cpf,
+                            cep: cep,
+                            data_nascimento: dataNascimento,
+                            tipo_chave_pix: tipoPix
+                        });
+
+                if (profileError) {
+                    throw profileError;
+                }
+
+                message.style.color = "#16a34a";
+
                 message.textContent =
-                    "A senha precisa ter pelo menos 6 caracteres.";
-                message.style.color = "#dc2626";
-                return;
-            }
+                    "Conta criada com sucesso! Verifique seu e-mail para confirmar o cadastro.";
 
-            message.textContent =
-                "Cadastro recebido! Nesta versão, a conta ainda não é real.";
-            message.style.color = "#16a34a";
+                registerForm.reset();
+
+            } catch (error) {
+
+                console.error(error);
+
+                message.style.color = "#dc2626";
+
+                message.textContent =
+                    error.message ||
+                    "Não foi possível criar sua conta.";
+
+            } finally {
+
+                registerButton.disabled = false;
+                registerButton.textContent = "Criar minha conta";
+
+            }
 
         });
 
