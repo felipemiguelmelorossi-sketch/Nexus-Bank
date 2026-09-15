@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Confirmar PIX — BancoPix</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+</head>
+
+<body>
+
+    <header class="topbar">
+
+        <div class="logo">
+            Banco<span>Pix</span>
+        </div>
+
+        <button
+            class="profile-button"
+            type="button"
+            onclick="location.href='enviar-pix.html'"
+        >
+            ←
+        </button>
+
+    </header>
+
+
+    <main class="auth-container">
+
+        <div class="auth-card">
+
+            <div class="logo">
+                Banco<span>Pix</span>
+            </div>
+
+            <h1>
+                Confirmar PIX
+            </h1>
+
+            <p class="subtitle">
+                Confira os dados antes de continuar.
+            </p>
+
+
+            <div class="pix-confirm-box">
+
+                <p class="pix-confirm-label">
+                    Chave PIX
+                </p>
+
+                <strong id="confirmChave">
+                    —
+                </strong>
+
+
+                <p class="pix-confirm-label">
+                    Valor
+                </p>
+
+                <strong id="confirmValor">
+                    R$ 0,00
+                </strong>
+
+
+                <p class="pix-confirm-label">
+                    Descrição
+                </p>
+
+                <strong id="confirmDescricao">
+                    —
+                </strong>
+
+            </div>
+
+
+            <button
+                class="primary-button"
+                id="confirmButton"
+                type="button"
+            >
+                Confirmar PIX
+            </button>
+
+
+            <button
+                class="secondary-button"
+                type="button"
+                onclick="location.href='enviar-pix.html'"
+            >
+                Voltar
+            </button>
+
+
+            <p
+                id="confirmMessage"
+                aria-live="polite"
+            ></p>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const chave =
+            params.get("chave") || "";
+
+
+        const valor =
+            params.get("valor") || "";
+
+
+        const descricao =
+            params.get("descricao") || "";
+
+
+        document.getElementById(
+            "confirmChave"
+        ).textContent =
+            chave || "Não informada";
+
+
+        document.getElementById(
+            "confirmValor"
+        ).textContent =
+            valor
+                ? "R$ " +
+                  Number(valor)
+                      .toFixed(2)
+                      .replace(".", ",")
+                : "R$ 0,00";
+
+
+        document.getElementById(
+            "confirmDescricao"
+        ).textContent =
+            descricao || "Sem descrição";
+
+
+        document.getElementById(
+            "confirmButton"
+        ).addEventListener(
+            "click",
+            function() {
+
+                const message =
+                    document.getElementById(
+                        "confirmMessage"
+                    );
+
+
+                message.textContent =
+                    "PIX ainda não conectado a um provedor real.";
+
+                message.style.color =
+                    "#dc2626";
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
