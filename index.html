@@ -19,6 +19,8 @@
 
 <body>
 
+    <!-- HEADER -->
+
     <header class="topbar">
 
         <div class="logo">
@@ -29,6 +31,7 @@
             class="profile-button"
             id="logoutButton"
             title="Sair"
+            type="button"
         >
             👤
         </button>
@@ -36,7 +39,11 @@
     </header>
 
 
+    <!-- CONTEÚDO -->
+
     <main class="container">
+
+        <!-- BOAS-VINDAS -->
 
         <section class="welcome">
 
@@ -78,16 +85,21 @@
         </section>
 
 
-        <!-- AÇÕES -->
+        <!-- AÇÕES RÁPIDAS -->
 
         <section class="quick-actions">
+
+            <!-- PIX -->
 
             <button
                 class="action"
                 type="button"
+                onclick="location.href='pix.html'"
             >
 
-                <div>⚡</div>
+                <div>
+                    ⚡
+                </div>
 
                 <span>
                     PIX
@@ -96,12 +108,17 @@
             </button>
 
 
+            <!-- TRANSFERIR -->
+
             <button
                 class="action"
                 type="button"
+                onclick="location.href='pix.html'"
             >
 
-                <div>💸</div>
+                <div>
+                    💸
+                </div>
 
                 <span>
                     Transferir
@@ -110,12 +127,17 @@
             </button>
 
 
+            <!-- RECEBER -->
+
             <button
                 class="action"
                 type="button"
+                onclick="location.href='pix.html'"
             >
 
-                <div>📥</div>
+                <div>
+                    📥
+                </div>
 
                 <span>
                     Receber
@@ -124,12 +146,16 @@
             </button>
 
 
+            <!-- EXTRATO -->
+
             <button
                 class="action"
                 type="button"
             >
 
-                <div>📋</div>
+                <div>
+                    📋
+                </div>
 
                 <span>
                     Extrato
@@ -150,7 +176,9 @@
                     Últimas movimentações
                 </h2>
 
-                <button type="button">
+                <button
+                    type="button"
+                >
                     Ver tudo
                 </button>
 
@@ -178,43 +206,66 @@
     </main>
 
 
-    <!-- MENU -->
+    <!-- MENU INFERIOR -->
 
     <nav class="bottom-nav">
+
+        <!-- INÍCIO -->
 
         <button
             class="active"
             type="button"
         >
 
-            <span>⌂</span>
+            <span>
+                ⌂
+            </span>
 
             Início
 
         </button>
 
 
-        <button type="button">
+        <!-- PIX -->
 
-            <span>⚡</span>
+        <button
+            type="button"
+            onclick="location.href='pix.html'"
+        >
+
+            <span>
+                ⚡
+            </span>
 
             PIX
 
         </button>
 
 
-        <button type="button">
+        <!-- EXTRATO -->
 
-            <span>📋</span>
+        <button
+            type="button"
+        >
+
+            <span>
+                📋
+            </span>
 
             Extrato
 
         </button>
 
 
-        <button type="button">
+        <!-- PERFIL -->
 
-            <span>👤</span>
+        <button
+            type="button"
+        >
+
+            <span>
+                👤
+            </span>
 
             Perfil
 
@@ -222,6 +273,8 @@
 
     </nav>
 
+
+    <!-- SCRIPT -->
 
     <script src="script.js"></script>
 
