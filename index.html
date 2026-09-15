@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BancoPix</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="topbar">
+        <div class="logo">
+            Banco<span>Pix</span>
+        </div>
+
+        <button class="profile-button">👤</button>
+    </header>
+
+    <main class="container">
+
+        <section class="welcome">
+            <p>Olá! 👋</p>
+            <h1>Bem-vindo ao BancoPix</h1>
+        </section>
+
+        <section class="balance-card">
+
+            <div>
+                <p class="balance-title">Saldo disponível</p>
+                <h2 id="balance">R$ 0,00</h2>
+            </div>
+
+            <button id="toggleBalance">👁️</button>
+
+        </section>
+
+        <section class="quick-actions">
+
+            <button class="action">
+                <div>⚡</div>
+                <span>PIX</span>
+            </button>
+
+            <button class="action">
+                <div>💸</div>
+                <span>Transferir</span>
+            </button>
+
+            <button class="action">
+                <div>📥</div>
+                <span>Receber</span>
+            </button>
+
+            <button class="action">
+                <div>📋</div>
+                <span>Extrato</span>
+            </button>
+
+        </section>
+
+        <section class="transactions">
+
+            <div class="section-header">
+                <h2>Últimas movimentações</h2>
+                <button>Ver tudo</button>
+            </div>
+
+            <div class="empty-state">
+                <div class="empty-icon">💳</div>
+                <h3>Nenhuma movimentação</h3>
+                <p>Suas transações aparecerão aqui.</p>
+            </div>
+
+        </section>
+
+    </main>
+
+    <nav class="bottom-nav">
+
+        <button class="active">
+            <span>⌂</span>
+            Início
+        </button>
+
+        <button>
+            <span>⚡</span>
+            PIX
+        </button>
+
+        <button>
+            <span>📋</span>
+            Extrato
+        </button>
+
+        <button>
+            <span>👤</span>
+            Perfil
+        </button>
+
+    </nav>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
