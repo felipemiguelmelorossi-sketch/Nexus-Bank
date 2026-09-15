@@ -114,6 +114,10 @@
 
     <script>
 
+        // =====================================================
+        // PEGAR DADOS DA URL
+        // =====================================================
+
         const params =
             new URLSearchParams(
                 window.location.search
@@ -125,12 +129,19 @@
 
 
         const valor =
-            params.get("valor") || "";
+            Number(
+                params.get("valor") || 0
+            );
 
 
         const descricao =
-            params.get("descricao") || "";
+            params.get("descricao") ||
+            "PIX enviado";
 
+
+        // =====================================================
+        // MOSTRAR DADOS
+        // =====================================================
 
         document.getElementById(
             "confirmChave"
@@ -141,40 +152,201 @@
         document.getElementById(
             "confirmValor"
         ).textContent =
-            valor
-                ? "R$ " +
-                  Number(valor)
-                      .toFixed(2)
-                      .replace(".", ",")
+            valor > 0
+                ? valor.toLocaleString(
+                    "pt-BR",
+                    {
+                        style: "currency",
+                        currency: "BRL"
+                    }
+                )
                 : "R$ 0,00";
 
 
         document.getElementById(
             "confirmDescricao"
         ).textContent =
-            descricao || "Sem descrição";
+            descricao;
 
 
-        document.getElementById(
-            "confirmButton"
-        ).addEventListener(
+        // =====================================================
+        // BOTÃO CONFIRMAR
+        // =====================================================
+
+        const confirmButton =
+            document.getElementById(
+                "confirmButton"
+            );
+
+
+        const confirmMessage =
+            document.getElementById(
+                "confirmMessage"
+            );
+
+
+        confirmButton.addEventListener(
             "click",
-            function() {
+            async function() {
 
-                const message =
-                    document.getElementById(
-                        "confirmMessage"
+                // -------------------------------
+                // VALIDAÇÃO
+                // -------------------------------
+
+                if (!chave || !valor || valor <= 0) {
+
+                    mostrarMensagem(
+                        "Dados do PIX inválidos.",
+                        "#dc2626"
+                    );
+
+                    return;
+
+                }
+
+
+                confirmButton.disabled =
+                    true;
+
+                confirmButton.textContent =
+                    "Registrando...";
+
+
+                try {
+
+                    // -------------------------------
+                    // VERIFICAR USUÁRIO
+                    // -------------------------------
+
+                    const {
+                        data: {
+                            session
+                        },
+                        error: sessionError
+                    } =
+                        await supabaseClient.auth
+                            .getSession();
+
+
+                    if (sessionError) {
+                        throw sessionError;
+                    }
+
+
+                    if (!session) {
+
+                        window.location.href =
+                            "login.html";
+
+                        return;
+
+                    }
+
+
+                    // -------------------------------
+                    // SALVAR TRANSAÇÃO
+                    // -------------------------------
+
+                    const {
+                        error
+                    } =
+                        await supabaseClient
+                            .from("transactions")
+                            .insert({
+
+                                user_id:
+                                    session.user.id,
+
+                                tipo:
+                                    "saida",
+
+                                titulo:
+                                    "PIX enviado",
+
+                                descricao:
+                                    descricao,
+
+                                valor:
+                                    valor
+
+                            });
+
+
+                    if (error) {
+                        throw error;
+                    }
+
+
+                    // -------------------------------
+                    // SUCESSO
+                    // -------------------------------
+
+                    mostrarMensagem(
+                        "PIX de teste registrado com sucesso!",
+                        "#16a34a"
                     );
 
 
-                message.textContent =
-                    "PIX ainda não conectado a um provedor real.";
+                    confirmButton.textContent =
+                        "PIX registrado";
 
-                message.style.color =
-                    "#dc2626";
+
+                    // Ir para o extrato
+
+                    setTimeout(
+                        function() {
+
+                            window.location.href =
+                                "extrato.html";
+
+                        },
+                        1000
+                    );
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Erro ao registrar PIX:",
+                        error
+                    );
+
+
+                    mostrarMensagem(
+                        error.message ||
+                        "Não foi possível registrar o PIX.",
+                        "#dc2626"
+                    );
+
+
+                    confirmButton.disabled =
+                        false;
+
+                    confirmButton.textContent =
+                        "Confirmar PIX";
+
+                }
 
             }
         );
+
+
+        // =====================================================
+        // MENSAGEM
+        // =====================================================
+
+        function mostrarMensagem(
+            mensagem,
+            cor
+        ) {
+
+            confirmMessage.textContent =
+                mensagem;
+
+            confirmMessage.style.color =
+                cor;
+
+        }
 
     </script>
 
