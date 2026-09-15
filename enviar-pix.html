@@ -129,8 +129,10 @@
         const pixForm =
             document.getElementById("pixForm");
 
+
         const pixMessage =
             document.getElementById("pixMessage");
+
 
         const pixButton =
             document.getElementById("pixButton");
@@ -156,28 +158,58 @@
                         .value;
 
 
+                const descricao =
+                    document
+                        .getElementById("descricao")
+                        .value
+                        .trim();
+
+
                 if (!chave || !valor) {
 
                     pixMessage.textContent =
-                        "Preencha os dados do PIX.";
+                        "Preencha a chave PIX e o valor.";
 
                     pixMessage.style.color =
                         "#dc2626";
 
                     return;
-
                 }
 
 
-                pixMessage.textContent =
-                    "Tela de confirmação preparada.";
+                if (Number(valor) <= 0) {
 
-                pixMessage.style.color =
-                    "#16a34a";
+                    pixMessage.textContent =
+                        "Digite um valor maior que R$ 0,00.";
 
+                    pixMessage.style.color =
+                        "#dc2626";
+
+                    return;
+                }
+
+
+                pixButton.disabled = true;
 
                 pixButton.textContent =
-                    "Continuar";
+                    "Continuando...";
+
+
+                const parametros =
+                    new URLSearchParams({
+
+                        chave: chave,
+
+                        valor: valor,
+
+                        descricao: descricao
+
+                    });
+
+
+                window.location.href =
+                    "confirmar-pix.html?" +
+                    parametros.toString();
 
             }
         );
