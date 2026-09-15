@@ -129,10 +129,8 @@
         const pixForm =
             document.getElementById("pixForm");
 
-
         const pixMessage =
             document.getElementById("pixMessage");
-
 
         const pixButton =
             document.getElementById("pixButton");
@@ -140,7 +138,7 @@
 
         pixForm.addEventListener(
             "submit",
-            function(event) {
+            async function(event) {
 
                 event.preventDefault();
 
@@ -153,9 +151,11 @@
 
 
                 const valor =
-                    document
-                        .getElementById("valor")
-                        .value;
+                    Number(
+                        document
+                            .getElementById("valor")
+                            .value
+                    );
 
 
                 const descricao =
@@ -165,54 +165,131 @@
                         .trim();
 
 
-                if (!chave || !valor) {
+                // ==============================
+                // VALIDAÇÕES
+                // ==============================
 
-                    pixMessage.textContent =
-                        "Preencha a chave PIX e o valor.";
+                if (!chave) {
 
-                    pixMessage.style.color =
-                        "#dc2626";
+                    mostrarErro(
+                        "Digite a chave PIX."
+                    );
 
                     return;
+
                 }
 
 
-                if (Number(valor) <= 0) {
+                if (!valor || valor <= 0) {
 
-                    pixMessage.textContent =
-                        "Digite um valor maior que R$ 0,00.";
-
-                    pixMessage.style.color =
-                        "#dc2626";
+                    mostrarErro(
+                        "Digite um valor maior que R$ 0,00."
+                    );
 
                     return;
+
                 }
 
+
+                // ==============================
+                // VERIFICAR LOGIN
+                // ==============================
 
                 pixButton.disabled = true;
 
                 pixButton.textContent =
-                    "Continuando...";
+                    "Verificando...";
 
 
-                const parametros =
-                    new URLSearchParams({
+                try {
 
-                        chave: chave,
+                    const {
+                        data: {
+                            session
+                        },
+                        error
+                    } =
+                        await supabaseClient.auth
+                            .getSession();
 
-                        valor: valor,
 
-                        descricao: descricao
+                    if (error) {
+                        throw error;
+                    }
 
-                    });
+
+                    if (!session) {
+
+                        window.location.href =
+                            "login.html";
+
+                        return;
+
+                    }
 
 
-                window.location.href =
-                    "confirmar-pix.html?" +
-                    parametros.toString();
+                    // ==============================
+                    // IR PARA CONFIRMAÇÃO
+                    // ==============================
+
+                    const parametros =
+                        new URLSearchParams({
+
+                            chave: chave,
+
+                            valor: valor.toFixed(2),
+
+                            descricao:
+                                descricao ||
+                                "PIX enviado"
+
+                        });
+
+
+                    window.location.href =
+                        "confirmar-pix.html?" +
+                        parametros.toString();
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Erro:",
+                        error
+                    );
+
+
+                    mostrarErro(
+                        error.message ||
+                        "Não foi possível continuar."
+                    );
+
+
+                    pixButton.disabled =
+                        false;
+
+                    pixButton.textContent =
+                        "Continuar";
+
+                }
 
             }
         );
+
+
+        // ==============================
+        // MOSTRAR ERRO
+        // ==============================
+
+        function mostrarErro(mensagem) {
+
+            pixMessage.textContent =
+                mensagem;
+
+            pixMessage.style.color =
+                "#dc2626";
+
+        }
 
     </script>
 
