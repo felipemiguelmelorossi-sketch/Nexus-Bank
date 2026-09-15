@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -14,18 +15,25 @@
     <link rel="stylesheet" href="style.css">
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <script src="supabase.js"></script>
+
 </head>
+
 
 <body class="auth-page">
 
+
     <main class="auth-container">
 
+
         <div class="auth-card auth-card-large">
+
 
             <div class="brand">
                 <span>Nexus</span> Bank
             </div>
+
 
             <div class="auth-header">
 
@@ -71,7 +79,6 @@
                         id="cpf"
                         placeholder="000.000.000-00"
                         maxlength="14"
-                        autocomplete="off"
                         required
                     >
 
@@ -89,7 +96,6 @@
                         id="cep"
                         placeholder="00000-000"
                         maxlength="9"
-                        autocomplete="postal-code"
                         required
                     >
 
@@ -138,8 +144,8 @@
                         type="password"
                         id="senha"
                         placeholder="Crie uma senha"
-                        autocomplete="new-password"
                         minlength="6"
+                        autocomplete="new-password"
                         required
                     >
 
@@ -190,6 +196,7 @@
                     Criar minha conta
                 </button>
 
+
             </form>
 
 
@@ -212,26 +219,36 @@
 
             </div>
 
+
         </div>
+
 
     </main>
 
 
     <script>
 
-        const registerForm =
-            document.getElementById("registerForm");
-
-        const registerMessage =
-            document.getElementById("message");
-
-        const registerButton =
-            document.getElementById("registerButton");
+        const form =
+            document.getElementById(
+                "registerForm"
+            );
 
 
-        // =====================================================
+        const message =
+            document.getElementById(
+                "message"
+            );
+
+
+        const button =
+            document.getElementById(
+                "registerButton"
+            );
+
+
+        // ==========================================
         // MÁSCARA CPF
-        // =====================================================
+        // ==========================================
 
         document
             .getElementById("cpf")
@@ -239,46 +256,56 @@
                 "input",
                 function() {
 
-                    let valor =
+                    let v =
                         this.value.replace(
                             /\D/g,
                             ""
                         );
 
-                    valor =
-                        valor.substring(
+
+                    v =
+                        v.substring(
                             0,
                             11
                         );
 
-                    valor =
-                        valor.replace(
-                            /(\d{3})(\d)/,
-                            "$1.$2"
-                        );
 
-                    valor =
-                        valor.replace(
-                            /(\d{3})(\d)/,
-                            "$1.$2"
-                        );
+                    if (v.length > 9) {
 
-                    valor =
-                        valor.replace(
-                            /(\d{3})(\d{1,2})$/,
-                            "$1-$2"
-                        );
+                        v =
+                            v.replace(
+                                /^(\d{3})(\d{3})(\d{3})(\d{1,2})$/,
+                                "$1.$2.$3-$4"
+                            );
 
-                    this.value =
-                        valor;
+                    } else if (v.length > 6) {
+
+                        v =
+                            v.replace(
+                                /^(\d{3})(\d{3})(\d{1,3})$/,
+                                "$1.$2.$3"
+                            );
+
+                    } else if (v.length > 3) {
+
+                        v =
+                            v.replace(
+                                /^(\d{3})(\d{1,3})$/,
+                                "$1.$2"
+                            );
+
+                    }
+
+
+                    this.value = v;
 
                 }
             );
 
 
-        // =====================================================
+        // ==========================================
         // MÁSCARA CEP
-        // =====================================================
+        // ==========================================
 
         document
             .getElementById("cep")
@@ -286,49 +313,76 @@
                 "input",
                 function() {
 
-                    let valor =
+                    let v =
                         this.value.replace(
                             /\D/g,
                             ""
                         );
 
-                    valor =
-                        valor.substring(
+
+                    v =
+                        v.substring(
                             0,
                             8
                         );
 
-                    if (valor.length > 5) {
 
-                        valor =
-                            valor.substring(
+                    if (v.length > 5) {
+
+                        v =
+                            v.substring(
                                 0,
                                 5
                             ) +
                             "-" +
-                            valor.substring(
+                            v.substring(
                                 5
                             );
 
                     }
 
-                    this.value =
-                        valor;
+
+                    this.value = v;
 
                 }
             );
 
 
-        // =====================================================
+        // ==========================================
         // CADASTRO
-        // =====================================================
+        // ==========================================
 
-        registerForm.addEventListener(
+        form.addEventListener(
             "submit",
             async function(event) {
 
                 event.preventDefault();
 
+
+                message.textContent = "";
+                message.className =
+                    "form-message";
+
+
+                // ----------------------------------
+                // VERIFICAR SUPABASE
+                // ----------------------------------
+
+                if (!window.supabaseClient) {
+
+                    mostrarMensagem(
+                        "O Supabase não foi carregado. Verifique o arquivo supabase.js.",
+                        false
+                    );
+
+                    return;
+
+                }
+
+
+                // ----------------------------------
+                // PEGAR CAMPOS
+                // ----------------------------------
 
                 const nome =
                     document
@@ -376,6 +430,10 @@
                         .value;
 
 
+                // ----------------------------------
+                // VALIDAÇÃO
+                // ----------------------------------
+
                 if (
                     !nome ||
                     !cpf ||
@@ -408,20 +466,24 @@
                 }
 
 
-                registerButton.disabled =
-                    true;
+                // ----------------------------------
+                // BOTÃO
+                // ----------------------------------
 
-                registerButton.textContent =
-                    "Criando conta";
+                button.disabled = true;
+
+                button.textContent =
+                    "Criando conta...";
 
 
                 try {
 
-                    const {
-                        data,
-                        error
-                    } =
-                        await supabaseClient.auth
+                    // --------------------------------
+                    // CRIAR CONTA AUTH
+                    // --------------------------------
+
+                    const resultado =
+                        await window.supabaseClient.auth
                             .signUp({
 
                                 email: email,
@@ -431,30 +493,38 @@
                             });
 
 
+                    const data =
+                        resultado.data;
+
+
+                    const error =
+                        resultado.error;
+
+
                     if (error) {
+
                         throw error;
+
                     }
 
 
-                    if (!data.user) {
+                    if (!data || !data.user) {
 
                         throw new Error(
-                            "Não foi possível criar a conta."
+                            "O Supabase não retornou o usuário."
                         );
 
                     }
 
 
-                    // =========================================
-                    // SALVAR PERFIL
-                    // =========================================
+                    // --------------------------------
+                    // SE JÁ EXISTIR SESSÃO
+                    // --------------------------------
 
                     if (data.session) {
 
-                        const {
-                            error: profileError
-                        } =
-                            await supabaseClient
+                        const perfil =
+                            await window.supabaseClient
                                 .from("profiles")
                                 .insert({
 
@@ -479,18 +549,12 @@
                                 });
 
 
-                        if (profileError) {
-                            throw profileError;
+                        if (perfil.error) {
+
+                            throw perfil.error;
+
                         }
 
-                    }
-
-
-                    // =========================================
-                    // RESULTADO
-                    // =========================================
-
-                    if (data.session) {
 
                         mostrarMensagem(
                             "Conta criada com sucesso.",
@@ -505,10 +569,15 @@
                                     "index.html";
 
                             },
-                            700
+                            800
                         );
 
+
                     } else {
+
+                        // --------------------------------
+                        // CONFIRMAÇÃO DE E-MAIL ATIVADA
+                        // --------------------------------
 
                         mostrarMensagem(
                             "Conta criada. Verifique seu e-mail para confirmar o cadastro.",
@@ -516,7 +585,7 @@
                         );
 
 
-                        registerForm.reset();
+                        form.reset();
 
                     }
 
@@ -524,7 +593,7 @@
                 } catch (error) {
 
                     console.error(
-                        "Erro no cadastro:",
+                        "ERRO NO CADASTRO:",
                         error
                     );
 
@@ -534,12 +603,13 @@
                         false
                     );
 
+
                 } finally {
 
-                    registerButton.disabled =
+                    button.disabled =
                         false;
 
-                    registerButton.textContent =
+                    button.textContent =
                         "Criar minha conta";
 
                 }
@@ -548,18 +618,105 @@
         );
 
 
+        // ==========================================
+        // MENSAGEM
+        // ==========================================
+
         function mostrarMensagem(
-            mensagem,
+            texto,
             sucesso
         ) {
 
-            registerMessage.textContent =
-                mensagem;
+            message.textContent =
+                texto;
 
-            registerMessage.className =
+
+            message.className =
                 sucesso
                     ? "form-message success"
                     : "form-message error";
+
+        }
+
+
+        // ==========================================
+        // ERROS DO SUPABASE
+        // ==========================================
+
+        function traduzirErroSupabase(error) {
+
+            if (!error) {
+
+                return "Ocorreu um erro.";
+
+            }
+
+
+            const texto =
+                String(
+                    error.message || error
+                ).toLowerCase();
+
+
+            if (
+                texto.includes(
+                    "user already registered"
+                )
+            ) {
+
+                return "Este e-mail já está cadastrado.";
+
+            }
+
+
+            if (
+                texto.includes(
+                    "password"
+                )
+            ) {
+
+                return "A senha precisa ter pelo menos 6 caracteres.";
+
+            }
+
+
+            if (
+                texto.includes(
+                    "rate limit"
+                )
+            ) {
+
+                return "Muitas tentativas. Aguarde um pouco.";
+
+            }
+
+
+            if (
+                texto.includes(
+                    "invalid api key"
+                )
+            ) {
+
+                return "A chave do Supabase está incorreta.";
+
+            }
+
+
+            if (
+                texto.includes(
+                    "failed to fetch"
+                )
+            ) {
+
+                return "Não foi possível conectar ao Supabase.";
+
+            }
+
+
+            return (
+                error.message ||
+                "Não foi possível criar a conta."
+            );
 
         }
 
