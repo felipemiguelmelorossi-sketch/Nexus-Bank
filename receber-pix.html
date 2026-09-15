@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Receber PIX — BancoPix</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+</head>
+
+<body>
+
+    <header class="topbar">
+
+        <div class="logo">
+            Banco<span>Pix</span>
+        </div>
+
+        <button
+            class="profile-button"
+            type="button"
+            onclick="location.href='pix.html'"
+        >
+            ←
+        </button>
+
+    </header>
+
+
+    <main class="auth-container">
+
+        <div class="auth-card">
+
+            <div class="logo">
+                Banco<span>Pix</span>
+            </div>
+
+            <h1>
+                Receber PIX
+            </h1>
+
+            <p class="subtitle">
+                Compartilhe sua chave PIX para receber.
+            </p>
+
+
+            <div class="pix-qr">
+
+                <div class="qr-placeholder">
+                    QR
+                </div>
+
+            </div>
+
+
+            <label for="chaveRecebimento">
+                Sua chave PIX
+            </label>
+
+            <input
+                type="text"
+                id="chaveRecebimento"
+                value="sua-chave@bancopix.test"
+                readonly
+            >
+
+
+            <button
+                class="primary-button"
+                id="copyButton"
+                type="button"
+            >
+                Copiar chave PIX
+            </button>
+
+
+            <p
+                id="copyMessage"
+                aria-live="polite"
+            ></p>
+
+
+            <p class="login-link">
+
+                <a href="pix.html">
+                    Voltar para PIX
+                </a>
+
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        const copyButton =
+            document.getElementById(
+                "copyButton"
+            );
+
+
+        const copyMessage =
+            document.getElementById(
+                "copyMessage"
+            );
+
+
+        const chave =
+            document.getElementById(
+                "chaveRecebimento"
+            );
+
+
+        copyButton.addEventListener(
+            "click",
+            async function() {
+
+                try {
+
+                    await navigator.clipboard.writeText(
+                        chave.value
+                    );
+
+                    copyMessage.textContent =
+                        "Chave copiada!";
+
+                    copyMessage.style.color =
+                        "#16a34a";
+
+                } catch (error) {
+
+                    chave.select();
+
+                    copyMessage.textContent =
+                        "Selecione e copie a chave.";
+
+                    copyMessage.style.color =
+                        "#dc2626";
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
