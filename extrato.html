@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Extrato — BancoPix</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="topbar">
+
+        <div class="logo">
+            Banco<span>Pix</span>
+        </div>
+
+        <button
+            class="profile-button"
+            type="button"
+            onclick="location.href='index.html'"
+        >
+            ←
+        </button>
+
+    </header>
+
+
+    <!-- CONTEÚDO -->
+
+    <main class="container">
+
+        <section class="welcome">
+
+            <p>BancoPix</p>
+
+            <h1>Extrato</h1>
+
+            <p>
+                Confira suas movimentações.
+            </p>
+
+        </section>
+
+
+        <!-- RESUMO -->
+
+        <section class="balance-card">
+
+            <div>
+
+                <p class="balance-title">
+                    Saldo disponível
+                </p>
+
+                <h2 id="extratoSaldo">
+                    R$ 0,00
+                </h2>
+
+            </div>
+
+        </section>
+
+
+        <!-- FILTROS -->
+
+        <section class="transactions">
+
+            <div class="section-header">
+
+                <h2>
+                    Movimentações
+                </h2>
+
+                <button
+                    type="button"
+                    id="limparFiltro"
+                >
+                    Todas
+                </button>
+
+            </div>
+
+
+            <!-- FILTROS -->
+
+            <div class="extrato-filtros">
+
+                <button
+                    type="button"
+                    class="filtro ativo"
+                    data-filtro="todos"
+                >
+                    Todas
+                </button>
+
+                <button
+                    type="button"
+                    class="filtro"
+                    data-filtro="entrada"
+                >
+                    Entradas
+                </button>
+
+                <button
+                    type="button"
+                    class="filtro"
+                    data-filtro="saida"
+                >
+                    Saídas
+                </button>
+
+            </div>
+
+
+            <!-- LISTA -->
+
+            <div id="listaMovimentacoes">
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        📋
+                    </div>
+
+                    <h3>
+                        Nenhuma movimentação
+                    </h3>
+
+                    <p>
+                        Suas transações aparecerão aqui.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- MENU -->
+
+    <nav class="bottom-nav">
+
+        <button
+            type="button"
+            onclick="location.href='index.html'"
+        >
+
+            <span>⌂</span>
+
+            Início
+
+        </button>
+
+
+        <button
+            type="button"
+            onclick="location.href='pix.html'"
+        >
+
+            <span>⚡</span>
+
+            PIX
+
+        </button>
+
+
+        <button
+            class="active"
+            type="button"
+        >
+
+            <span>📋</span>
+
+            Extrato
+
+        </button>
+
+
+        <button
+            type="button"
+        >
+
+            <span>👤</span>
+
+            Perfil
+
+        </button>
+
+    </nav>
+
+
+    <script>
+
+        const lista =
+            document.getElementById(
+                "listaMovimentacoes"
+            );
+
+
+        const saldo =
+            document.getElementById(
+                "extratoSaldo"
+            );
+
+
+        const filtros =
+            document.querySelectorAll(
+                ".filtro"
+            );
+
+
+        /*
+         * Dados de demonstração.
+         *
+         * Não representam dinheiro real.
+         * Depois serão substituídos pelas
+         * movimentações vindas do banco/API.
+         */
+
+        const movimentacoes = [
+
+            {
+                tipo: "entrada",
+                titulo: "PIX recebido",
+                descricao: "Demonstração",
+                valor: 150.00,
+                data: "Hoje, 10:42"
+            },
+
+            {
+                tipo: "saida",
+                titulo: "PIX enviado",
+                descricao: "Demonstração",
+                valor: 35.90,
+                data: "Ontem, 18:21"
+            },
+
+            {
+                tipo: "entrada",
+                titulo: "PIX recebido",
+                descricao: "Demonstração",
+                valor: 80.00,
+                data: "12/09/2026, 14:05"
+            }
+
+        ];
+
+
+        function formatarValor(valor) {
+
+            return valor.toLocaleString(
+                "pt-BR",
+                {
+                    style: "currency",
+                    currency: "BRL"
+                }
+            );
+
+        }
+
+
+        function mostrarMovimentacoes(
+            filtro = "todos"
+        ) {
+
+            let dados =
+                movimentacoes;
+
+
+            if (filtro !== "todos") {
+
+                dados =
+                    movimentacoes.filter(
+                        item =>
+                            item.tipo === filtro
+                    );
+
+            }
+
+
+            if (dados.length === 0) {
+
+                lista.innerHTML = `
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            📋
+                        </div>
+
+                        <h3>
+                            Nenhuma movimentação
+                        </h3>
+
+                        <p>
+                            Não encontramos movimentações
+                            nesse filtro.
+                        </p>
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+            lista.innerHTML = "";
+
+
+            dados.forEach(
+                movimentacao => {
+
+                    const item =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    item.className =
+                        "movimentacao";
+
+
+                    const sinal =
+                        movimentacao.tipo ===
+                        "entrada"
+                            ? "+"
+                            : "-";
+
+
+                    item.innerHTML = `
+
+                        <div class="movimentacao-info">
+
+                            <div class="movimentacao-icon">
+
+                                ${
+                                    movimentacao.tipo ===
+                                    "entrada"
+                                        ? "↓"
+                                        : "↑"
+                                }
+
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    ${movimentacao.titulo}
+                                </strong>
+
+                                <p>
+                                    ${movimentacao.descricao}
+                                </p>
+
+                                <small>
+                                    ${movimentacao.data}
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <strong class="
+                            movimentacao-valor
+                            ${movimentacao.tipo}
+                        ">
+
+                            ${sinal}
+                            ${formatarValor(
+                                movimentacao.valor
+                            )}
+
+                        </strong>
+
+                    `;
+
+
+                    lista.appendChild(item);
+
+                }
+            );
+
+        }
+
+
+        function calcularSaldo() {
+
+            let total = 0;
+
+
+            movimentacoes.forEach(
+                movimentacao => {
+
+                    if (
+                        movimentacao.tipo ===
+                        "entrada"
+                    ) {
+
+                        total +=
+                            movimentacao.valor;
+
+                    } else {
+
+                        total -=
+                            movimentacao.valor;
+
+                    }
+
+                }
+            );
+
+
+            saldo.textContent =
+                formatarValor(total);
+
+        }
+
+
+        filtros.forEach(
+            filtro => {
+
+                filtro.addEventListener(
+                    "click",
+                    () => {
+
+                        filtros.forEach(
+                            botao =>
+                                botao.classList
+                                    .remove(
+                                        "ativo"
+                                    )
+                        );
+
+
+                        filtro.classList.add(
+                            "ativo"
+                        );
+
+
+                        mostrarMovimentacoes(
+                            filtro.dataset.filtro
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+        document
+            .getElementById("limparFiltro")
+            .addEventListener(
+                "click",
+                () => {
+
+                    filtros.forEach(
+                        botao =>
+                            botao.classList
+                                .remove(
+                                    "ativo"
+                                )
+                    );
+
+
+                    document
+                        .querySelector(
+                            '[data-filtro="todos"]'
+                        )
+                        .classList
+                        .add("ativo");
+
+
+                    mostrarMovimentacoes();
+
+                }
+            );
+
+
+        mostrarMovimentacoes();
+
+        calcularSaldo();
+
+    </script>
+
+</body>
+
+</html>
