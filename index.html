@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -11,21 +12,33 @@
 
     <title>BancoPix</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
     <script src="supabase.js"></script>
+
 </head>
+
 
 <body>
 
-    <!-- HEADER -->
+
+    <!-- =====================================
+         HEADER
+    ====================================== -->
 
     <header class="topbar">
 
         <div class="logo">
             Banco<span>Pix</span>
         </div>
+
 
         <button
             class="profile-button"
@@ -39,26 +52,37 @@
     </header>
 
 
-    <!-- CONTEÚDO -->
+
+    <!-- =====================================
+         CONTEÚDO
+    ====================================== -->
 
     <main class="container">
+
 
         <!-- BOAS-VINDAS -->
 
         <section class="welcome">
 
-            <p>Olá! 👋</p>
+            <p>
+                Olá! 👋
+            </p>
+
 
             <h1>
                 Bem-vindo ao BancoPix
             </h1>
+
 
             <p data-user-email></p>
 
         </section>
 
 
-        <!-- SALDO -->
+
+        <!-- =================================
+             SALDO
+        ================================== -->
 
         <section class="balance-card">
 
@@ -68,11 +92,13 @@
                     Saldo disponível
                 </p>
 
+
                 <h2 id="balance">
                     R$ 0,00
                 </h2>
 
             </div>
+
 
             <button
                 id="toggleBalance"
@@ -85,9 +111,13 @@
         </section>
 
 
-        <!-- AÇÕES RÁPIDAS -->
+
+        <!-- =================================
+             AÇÕES
+        ================================== -->
 
         <section class="quick-actions">
+
 
             <!-- PIX -->
 
@@ -101,6 +131,7 @@
                     ⚡
                 </div>
 
+
                 <span>
                     PIX
                 </span>
@@ -108,17 +139,19 @@
             </button>
 
 
+
             <!-- TRANSFERIR -->
 
             <button
                 class="action"
                 type="button"
-                onclick="location.href='pix.html'"
+                onclick="location.href='enviar-pix.html'"
             >
 
                 <div>
                     💸
                 </div>
+
 
                 <span>
                     Transferir
@@ -127,17 +160,19 @@
             </button>
 
 
+
             <!-- RECEBER -->
 
             <button
                 class="action"
                 type="button"
-                onclick="location.href='pix.html'"
+                onclick="location.href='receber-pix.html'"
             >
 
                 <div>
                     📥
                 </div>
+
 
                 <span>
                     Receber
@@ -146,16 +181,19 @@
             </button>
 
 
+
             <!-- EXTRATO -->
 
             <button
                 class="action"
                 type="button"
+                onclick="location.href='extrato.html'"
             >
 
                 <div>
                     📋
                 </div>
+
 
                 <span>
                     Extrato
@@ -166,9 +204,13 @@
         </section>
 
 
-        <!-- MOVIMENTAÇÕES -->
+
+        <!-- =================================
+             MOVIMENTAÇÕES
+        ================================== -->
 
         <section class="transactions">
+
 
             <div class="section-header">
 
@@ -176,13 +218,16 @@
                     Últimas movimentações
                 </h2>
 
+
                 <button
                     type="button"
+                    onclick="location.href='extrato.html'"
                 >
                     Ver tudo
                 </button>
 
             </div>
+
 
 
             <div class="empty-state">
@@ -191,9 +236,11 @@
                     💳
                 </div>
 
+
                 <h3>
                     Nenhuma movimentação
                 </h3>
+
 
                 <p>
                     Suas transações aparecerão aqui.
@@ -206,15 +253,20 @@
     </main>
 
 
-    <!-- MENU INFERIOR -->
+
+    <!-- =====================================
+         MENU INFERIOR
+    ====================================== -->
 
     <nav class="bottom-nav">
+
 
         <!-- INÍCIO -->
 
         <button
             class="active"
             type="button"
+            onclick="location.href='index.html'"
         >
 
             <span>
@@ -224,6 +276,7 @@
             Início
 
         </button>
+
 
 
         <!-- PIX -->
@@ -242,10 +295,12 @@
         </button>
 
 
+
         <!-- EXTRATO -->
 
         <button
             type="button"
+            onclick="location.href='extrato.html'"
         >
 
             <span>
@@ -255,6 +310,7 @@
             Extrato
 
         </button>
+
 
 
         <!-- PERFIL -->
@@ -274,7 +330,10 @@
     </nav>
 
 
-    <!-- SCRIPT -->
+
+    <!-- =====================================
+         SCRIPT
+    ====================================== -->
 
     <script src="script.js"></script>
 
