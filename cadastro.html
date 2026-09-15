@@ -9,129 +9,178 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Criar conta — BancoPix</title>
+    <title>Criar conta — Nexus Bank</title>
 
     <link rel="stylesheet" href="style.css">
 
-    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase.js"></script>
 </head>
 
-<body>
+<body class="auth-page">
 
     <main class="auth-container">
 
-        <div class="auth-card">
+        <div class="auth-card auth-card-large">
 
-            <div class="logo">
-                Banco<span>Pix</span>
+            <div class="brand">
+                <span>Nexus</span> Bank
             </div>
 
-            <h1>Crie sua conta</h1>
+            <div class="auth-header">
 
-            <p class="subtitle">
-                Crie sua conta para acessar o BancoPix.
-            </p>
+                <h1>
+                    Crie sua conta
+                </h1>
+
+                <p>
+                    Abra sua conta Nexus Bank.
+                </p>
+
+            </div>
+
 
             <form id="registerForm">
 
-                <label for="nome">
-                    Nome completo
-                </label>
 
-                <input
-                    type="text"
-                    id="nome"
-                    placeholder="Digite seu nome completo"
-                    autocomplete="name"
-                    required
-                >
+                <div class="field">
 
-                <label for="cpf">
-                    CPF
-                </label>
+                    <label for="nome">
+                        Nome completo
+                    </label>
 
-                <input
-                    type="text"
-                    id="cpf"
-                    placeholder="000.000.000-00"
-                    maxlength="14"
-                    autocomplete="off"
-                    required
-                >
+                    <input
+                        type="text"
+                        id="nome"
+                        placeholder="Seu nome completo"
+                        autocomplete="name"
+                        required
+                    >
 
-                <label for="cep">
-                    CEP
-                </label>
+                </div>
 
-                <input
-                    type="text"
-                    id="cep"
-                    placeholder="00000-000"
-                    maxlength="9"
-                    autocomplete="postal-code"
-                    required
-                >
 
-                <label for="dataNascimento">
-                    Data de nascimento
-                </label>
+                <div class="field">
 
-                <input
-                    type="date"
-                    id="dataNascimento"
-                    required
-                >
-
-                <label for="email">
-                    E-mail
-                </label>
-
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="seu@email.com"
-                    autocomplete="email"
-                    required
-                >
-
-                <label for="senha">
-                    Senha
-                </label>
-
-                <input
-                    type="password"
-                    id="senha"
-                    placeholder="Crie uma senha"
-                    autocomplete="new-password"
-                    minlength="6"
-                    required
-                >
-
-                <label for="tipoPix">
-                    Tipo de chave PIX
-                </label>
-
-                <select id="tipoPix" required>
-
-                    <option value="">
-                        Selecione uma opção
-                    </option>
-
-                    <option value="cpf">
+                    <label for="cpf">
                         CPF
-                    </option>
+                    </label>
 
-                    <option value="email">
+                    <input
+                        type="text"
+                        id="cpf"
+                        placeholder="000.000.000-00"
+                        maxlength="14"
+                        autocomplete="off"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="cep">
+                        CEP
+                    </label>
+
+                    <input
+                        type="text"
+                        id="cep"
+                        placeholder="00000-000"
+                        maxlength="9"
+                        autocomplete="postal-code"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="dataNascimento">
+                        Data de nascimento
+                    </label>
+
+                    <input
+                        type="date"
+                        id="dataNascimento"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="email">
                         E-mail
-                    </option>
+                    </label>
 
-                    <option value="aleatoria">
-                        Chave aleatória
-                    </option>
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="seu@email.com"
+                        autocomplete="email"
+                        required
+                    >
 
-                </select>
+                </div>
+
+
+                <div class="field">
+
+                    <label for="senha">
+                        Senha
+                    </label>
+
+                    <input
+                        type="password"
+                        id="senha"
+                        placeholder="Crie uma senha"
+                        autocomplete="new-password"
+                        minlength="6"
+                        required
+                    >
+
+                    <small>
+                        Use pelo menos 6 caracteres.
+                    </small>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="tipoPix">
+                        Tipo de chave PIX
+                    </label>
+
+                    <select
+                        id="tipoPix"
+                        required
+                    >
+
+                        <option value="">
+                            Selecione o tipo de chave
+                        </option>
+
+                        <option value="cpf">
+                            CPF
+                        </option>
+
+                        <option value="email">
+                            E-mail
+                        </option>
+
+                        <option value="aleatoria">
+                            Chave aleatória
+                        </option>
+
+                    </select>
+
+                </div>
+
 
                 <button
                     type="submit"
@@ -143,23 +192,378 @@
 
             </form>
 
+
             <p
                 id="message"
+                class="form-message"
                 aria-live="polite"
             ></p>
 
-            <p class="login-link">
-                Já possui uma conta?
+
+            <div class="auth-footer">
+
+                <span>
+                    Já possui uma conta?
+                </span>
+
                 <a href="login.html">
                     Entrar
                 </a>
-            </p>
+
+            </div>
 
         </div>
 
     </main>
 
-    <script src="script.js"></script>
+
+    <script>
+
+        const registerForm =
+            document.getElementById("registerForm");
+
+        const registerMessage =
+            document.getElementById("message");
+
+        const registerButton =
+            document.getElementById("registerButton");
+
+
+        // =====================================================
+        // MÁSCARA CPF
+        // =====================================================
+
+        document
+            .getElementById("cpf")
+            .addEventListener(
+                "input",
+                function() {
+
+                    let valor =
+                        this.value.replace(
+                            /\D/g,
+                            ""
+                        );
+
+                    valor =
+                        valor.substring(
+                            0,
+                            11
+                        );
+
+                    valor =
+                        valor.replace(
+                            /(\d{3})(\d)/,
+                            "$1.$2"
+                        );
+
+                    valor =
+                        valor.replace(
+                            /(\d{3})(\d)/,
+                            "$1.$2"
+                        );
+
+                    valor =
+                        valor.replace(
+                            /(\d{3})(\d{1,2})$/,
+                            "$1-$2"
+                        );
+
+                    this.value =
+                        valor;
+
+                }
+            );
+
+
+        // =====================================================
+        // MÁSCARA CEP
+        // =====================================================
+
+        document
+            .getElementById("cep")
+            .addEventListener(
+                "input",
+                function() {
+
+                    let valor =
+                        this.value.replace(
+                            /\D/g,
+                            ""
+                        );
+
+                    valor =
+                        valor.substring(
+                            0,
+                            8
+                        );
+
+                    if (valor.length > 5) {
+
+                        valor =
+                            valor.substring(
+                                0,
+                                5
+                            ) +
+                            "-" +
+                            valor.substring(
+                                5
+                            );
+
+                    }
+
+                    this.value =
+                        valor;
+
+                }
+            );
+
+
+        // =====================================================
+        // CADASTRO
+        // =====================================================
+
+        registerForm.addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+
+                const nome =
+                    document
+                        .getElementById("nome")
+                        .value
+                        .trim();
+
+
+                const cpf =
+                    document
+                        .getElementById("cpf")
+                        .value
+                        .trim();
+
+
+                const cep =
+                    document
+                        .getElementById("cep")
+                        .value
+                        .trim();
+
+
+                const dataNascimento =
+                    document
+                        .getElementById("dataNascimento")
+                        .value;
+
+
+                const email =
+                    document
+                        .getElementById("email")
+                        .value
+                        .trim();
+
+
+                const senha =
+                    document
+                        .getElementById("senha")
+                        .value;
+
+
+                const tipoPix =
+                    document
+                        .getElementById("tipoPix")
+                        .value;
+
+
+                if (
+                    !nome ||
+                    !cpf ||
+                    !cep ||
+                    !dataNascimento ||
+                    !email ||
+                    !senha ||
+                    !tipoPix
+                ) {
+
+                    mostrarMensagem(
+                        "Preencha todos os campos.",
+                        false
+                    );
+
+                    return;
+
+                }
+
+
+                if (senha.length < 6) {
+
+                    mostrarMensagem(
+                        "A senha precisa ter pelo menos 6 caracteres.",
+                        false
+                    );
+
+                    return;
+
+                }
+
+
+                registerButton.disabled =
+                    true;
+
+                registerButton.textContent =
+                    "Criando conta";
+
+
+                try {
+
+                    const {
+                        data,
+                        error
+                    } =
+                        await supabaseClient.auth
+                            .signUp({
+
+                                email: email,
+
+                                password: senha
+
+                            });
+
+
+                    if (error) {
+                        throw error;
+                    }
+
+
+                    if (!data.user) {
+
+                        throw new Error(
+                            "Não foi possível criar a conta."
+                        );
+
+                    }
+
+
+                    // =========================================
+                    // SALVAR PERFIL
+                    // =========================================
+
+                    if (data.session) {
+
+                        const {
+                            error: profileError
+                        } =
+                            await supabaseClient
+                                .from("profiles")
+                                .insert({
+
+                                    id:
+                                        data.user.id,
+
+                                    nome_completo:
+                                        nome,
+
+                                    cpf:
+                                        cpf,
+
+                                    cep:
+                                        cep,
+
+                                    data_nascimento:
+                                        dataNascimento,
+
+                                    tipo_chave_pix:
+                                        tipoPix
+
+                                });
+
+
+                        if (profileError) {
+                            throw profileError;
+                        }
+
+                    }
+
+
+                    // =========================================
+                    // RESULTADO
+                    // =========================================
+
+                    if (data.session) {
+
+                        mostrarMensagem(
+                            "Conta criada com sucesso.",
+                            true
+                        );
+
+
+                        setTimeout(
+                            function() {
+
+                                window.location.href =
+                                    "index.html";
+
+                            },
+                            700
+                        );
+
+                    } else {
+
+                        mostrarMensagem(
+                            "Conta criada. Verifique seu e-mail para confirmar o cadastro.",
+                            true
+                        );
+
+
+                        registerForm.reset();
+
+                    }
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Erro no cadastro:",
+                        error
+                    );
+
+
+                    mostrarMensagem(
+                        traduzirErroSupabase(error),
+                        false
+                    );
+
+                } finally {
+
+                    registerButton.disabled =
+                        false;
+
+                    registerButton.textContent =
+                        "Criar minha conta";
+
+                }
+
+            }
+        );
+
+
+        function mostrarMensagem(
+            mensagem,
+            sucesso
+        ) {
+
+            registerMessage.textContent =
+                mensagem;
+
+            registerMessage.className =
+                sucesso
+                    ? "form-message success"
+                    : "form-message error";
+
+        }
+
+    </script>
 
 </body>
 
