@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Enviar PIX — BancoPix</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+</head>
+
+<body>
+
+    <header class="topbar">
+
+        <div class="logo">
+            Banco<span>Pix</span>
+        </div>
+
+        <button
+            class="profile-button"
+            type="button"
+            onclick="location.href='pix.html'"
+        >
+            ←
+        </button>
+
+    </header>
+
+
+    <main class="auth-container">
+
+        <div class="auth-card">
+
+            <div class="logo">
+                Banco<span>Pix</span>
+            </div>
+
+            <h1>
+                Enviar PIX
+            </h1>
+
+            <p class="subtitle">
+                Informe os dados da transferência.
+            </p>
+
+
+            <form id="pixForm">
+
+                <label for="chave">
+                    Chave PIX
+                </label>
+
+                <input
+                    type="text"
+                    id="chave"
+                    placeholder="CPF, e-mail ou chave aleatória"
+                    autocomplete="off"
+                    required
+                >
+
+
+                <label for="valor">
+                    Valor
+                </label>
+
+                <input
+                    type="number"
+                    id="valor"
+                    placeholder="0,00"
+                    min="0.01"
+                    step="0.01"
+                    required
+                >
+
+
+                <label for="descricao">
+                    Descrição
+                </label>
+
+                <input
+                    type="text"
+                    id="descricao"
+                    placeholder="Ex.: Pagamento"
+                    maxlength="100"
+                >
+
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                    id="pixButton"
+                >
+                    Continuar
+                </button>
+
+            </form>
+
+
+            <p
+                id="pixMessage"
+                aria-live="polite"
+            ></p>
+
+
+            <p class="login-link">
+
+                <a href="pix.html">
+                    Voltar para PIX
+                </a>
+
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        const pixForm =
+            document.getElementById("pixForm");
+
+        const pixMessage =
+            document.getElementById("pixMessage");
+
+        const pixButton =
+            document.getElementById("pixButton");
+
+
+        pixForm.addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+
+                const chave =
+                    document
+                        .getElementById("chave")
+                        .value
+                        .trim();
+
+
+                const valor =
+                    document
+                        .getElementById("valor")
+                        .value;
+
+
+                if (!chave || !valor) {
+
+                    pixMessage.textContent =
+                        "Preencha os dados do PIX.";
+
+                    pixMessage.style.color =
+                        "#dc2626";
+
+                    return;
+
+                }
+
+
+                pixMessage.textContent =
+                    "Tela de confirmação preparada.";
+
+                pixMessage.style.color =
+                    "#16a34a";
+
+
+                pixButton.textContent =
+                    "Continuar";
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
