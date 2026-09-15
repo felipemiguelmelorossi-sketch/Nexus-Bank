@@ -1,341 +1,262 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 
 <head>
 
-    <meta charset="UTF-8">
+```
+<meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-    <title>BancoPix</title>
+<title>Nexus Bank</title>
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+<link
+    rel="stylesheet"
+    href="style.css"
+>
 
-    <script
-        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-    ></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
 
-    <script src="supabase.js"></script>
+<script src="supabase.js"></script>
+```
 
 </head>
 
-
 <body>
 
+```
+<header class="topbar">
 
-    <!-- =====================================
-         HEADER
-    ====================================== -->
+    <div class="logo">
+        Nexus<span>Bank</span>
+    </div>
 
-    <header class="topbar">
+    <button
+        class="profile-button"
+        id="logoutButton"
+        title="Sair"
+        type="button"
+    >
+        Sair
+    </button>
 
-        <div class="logo">
-            Banco<span>Pix</span>
-        </div>
-
-
-        <button
-            class="profile-button"
-            id="logoutButton"
-            title="Sair"
-            type="button"
-        >
-            👤
-        </button>
-
-    </header>
+</header>
 
 
+<main class="container">
 
-    <!-- =====================================
-         CONTEÚDO
-    ====================================== -->
+    <section class="welcome">
 
-    <main class="container">
+        <p>
+            Olá!
+        </p>
+
+        <h1>
+            Bem-vindo ao Nexus Bank
+        </h1>
+
+        <p data-user-email></p>
+
+    </section>
 
 
-        <!-- BOAS-VINDAS -->
+    <section class="balance-card">
 
-        <section class="welcome">
+        <div>
 
-            <p>
-                Olá! 👋
+            <p class="balance-title">
+                Saldo disponível
             </p>
 
-
-            <h1>
-                Bem-vindo ao BancoPix
-            </h1>
-
-
-            <p data-user-email></p>
-
-        </section>
-
-
-
-        <!-- =================================
-             SALDO
-        ================================== -->
-
-        <section class="balance-card">
-
-            <div>
-
-                <p class="balance-title">
-                    Saldo disponível
-                </p>
-
-
-                <h2 id="balance">
-                    R$ 0,00
-                </h2>
-
-            </div>
-
-
-            <button
-                id="toggleBalance"
-                type="button"
-                aria-label="Mostrar ou ocultar saldo"
-            >
-                👁️
-            </button>
-
-        </section>
-
-
-
-        <!-- =================================
-             AÇÕES
-        ================================== -->
-
-        <section class="quick-actions">
-
-
-            <!-- PIX -->
-
-            <button
-                class="action"
-                type="button"
-                onclick="location.href='pix.html'"
-            >
-
-                <div>
-                    ⚡
-                </div>
-
-
-                <span>
-                    PIX
-                </span>
-
-            </button>
-
-
-
-            <!-- TRANSFERIR -->
-
-            <button
-                class="action"
-                type="button"
-                onclick="location.href='enviar-pix.html'"
-            >
-
-                <div>
-                    💸
-                </div>
-
-
-                <span>
-                    Transferir
-                </span>
-
-            </button>
-
-
-
-            <!-- RECEBER -->
-
-            <button
-                class="action"
-                type="button"
-                onclick="location.href='receber-pix.html'"
-            >
-
-                <div>
-                    📥
-                </div>
-
-
-                <span>
-                    Receber
-                </span>
-
-            </button>
-
-
-
-            <!-- EXTRATO -->
-
-            <button
-                class="action"
-                type="button"
-                onclick="location.href='extrato.html'"
-            >
-
-                <div>
-                    📋
-                </div>
-
-
-                <span>
-                    Extrato
-                </span>
-
-            </button>
-
-        </section>
-
-
-
-        <!-- =================================
-             MOVIMENTAÇÕES
-        ================================== -->
-
-        <section class="transactions">
-
-
-            <div class="section-header">
-
-                <h2>
-                    Últimas movimentações
-                </h2>
-
-
-                <button
-                    type="button"
-                    onclick="location.href='extrato.html'"
-                >
-                    Ver tudo
-                </button>
-
-            </div>
-
-
-
-            <div class="empty-state">
-
-                <div class="empty-icon">
-                    💳
-                </div>
-
-
-                <h3>
-                    Nenhuma movimentação
-                </h3>
-
-
-                <p>
-                    Suas transações aparecerão aqui.
-                </p>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-
-    <!-- =====================================
-         MENU INFERIOR
-    ====================================== -->
-
-    <nav class="bottom-nav">
-
-
-        <!-- INÍCIO -->
+            <h2 id="balance">
+                R$ 0,00
+            </h2>
+
+        </div>
 
         <button
-            class="active"
+            id="toggleBalance"
             type="button"
-            onclick="location.href='index.html'"
+            aria-label="Mostrar ou ocultar saldo"
         >
-
-            <span>
-                ⌂
-            </span>
-
-            Início
-
+            Mostrar
         </button>
 
+    </section>
 
 
-        <!-- PIX -->
+    <section class="quick-actions">
 
         <button
+            class="action"
             type="button"
             onclick="location.href='pix.html'"
         >
 
-            <span>
-                ⚡
-            </span>
+            <div>
+                PIX
+            </div>
 
-            PIX
+            <span>
+                PIX
+            </span>
 
         </button>
 
 
+        <button
+            class="action"
+            type="button"
+            onclick="location.href='enviar-pix.html'"
+        >
 
-        <!-- EXTRATO -->
+            <div>
+                Transferir
+            </div>
+
+            <span>
+                Transferir
+            </span>
+
+        </button>
+
 
         <button
+            class="action"
+            type="button"
+            onclick="location.href='receber-pix.html'"
+        >
+
+            <div>
+                Receber
+            </div>
+
+            <span>
+                Receber
+            </span>
+
+        </button>
+
+
+        <button
+            class="action"
             type="button"
             onclick="location.href='extrato.html'"
         >
 
+            <div>
+                Extrato
+            </div>
+
             <span>
-                📋
+                Extrato
             </span>
 
+        </button>
+
+    </section>
+
+
+    <section class="transactions">
+
+        <div class="section-header">
+
+            <h2>
+                Últimas movimentações
+            </h2>
+
+            <button
+                type="button"
+                onclick="location.href='extrato.html'"
+            >
+                Ver tudo
+            </button>
+
+        </div>
+
+
+        <div class="empty-state">
+
+            <div class="empty-icon">
+                Nexus
+            </div>
+
+            <h3>
+                Nenhuma movimentação
+            </h3>
+
+            <p>
+                Suas transações aparecerão aqui.
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<nav class="bottom-nav">
+
+    <button
+        class="active"
+        type="button"
+        onclick="location.href='index.html'"
+    >
+
+        <span>
+            Início
+        </span>
+
+    </button>
+
+
+    <button
+        type="button"
+        onclick="location.href='pix.html'"
+    >
+
+        <span>
+            PIX
+        </span>
+
+    </button>
+
+
+    <button
+        type="button"
+        onclick="location.href='extrato.html'"
+    >
+
+        <span>
             Extrato
+        </span>
 
-        </button>
+    </button>
 
 
+    <button
+        type="button"
+        id="profileNavButton"
+    >
 
-        <!-- PERFIL -->
-
-        <button
-            type="button"
-        >
-
-            <span>
-                👤
-            </span>
-
+        <span>
             Perfil
+        </span>
 
-        </button>
+    </button>
 
-    </nav>
+</nav>
 
 
-
-    <!-- =====================================
-         SCRIPT
-    ====================================== -->
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
+```
 
 </body>
 
