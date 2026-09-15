@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Criar conta — BancoPix</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
 </head>
 
 <body>
@@ -20,82 +29,131 @@
             </div>
 
             <h1>Crie sua conta</h1>
+
             <p class="subtitle">
-                Preencha seus dados para começar.
+                Crie sua conta para acessar o BancoPix.
             </p>
 
             <form id="registerForm">
 
-                <label>Nome completo</label>
+                <label for="nome">
+                    Nome completo
+                </label>
+
                 <input
                     type="text"
                     id="nome"
                     placeholder="Digite seu nome completo"
+                    autocomplete="name"
                     required
                 >
 
-                <label>CPF</label>
+                <label for="cpf">
+                    CPF
+                </label>
+
                 <input
                     type="text"
                     id="cpf"
                     placeholder="000.000.000-00"
                     maxlength="14"
+                    autocomplete="off"
                     required
                 >
 
-                <label>CEP</label>
+                <label for="cep">
+                    CEP
+                </label>
+
                 <input
                     type="text"
                     id="cep"
                     placeholder="00000-000"
                     maxlength="9"
+                    autocomplete="postal-code"
                     required
                 >
 
-                <label>Data de nascimento</label>
+                <label for="dataNascimento">
+                    Data de nascimento
+                </label>
+
                 <input
                     type="date"
                     id="dataNascimento"
                     required
                 >
 
-                <label>E-mail</label>
+                <label for="email">
+                    E-mail
+                </label>
+
                 <input
                     type="email"
                     id="email"
                     placeholder="seu@email.com"
+                    autocomplete="email"
                     required
                 >
 
-                <label>Senha</label>
+                <label for="senha">
+                    Senha
+                </label>
+
                 <input
                     type="password"
                     id="senha"
                     placeholder="Crie uma senha"
+                    autocomplete="new-password"
+                    minlength="6"
                     required
                 >
 
-                <label>Tipo de chave PIX</label>
+                <label for="tipoPix">
+                    Tipo de chave PIX
+                </label>
 
                 <select id="tipoPix" required>
-                    <option value="">Selecione</option>
-                    <option value="cpf">CPF</option>
-                    <option value="email">E-mail</option>
-                    <option value="aleatoria">Chave aleatória</option>
+
+                    <option value="">
+                        Selecione uma opção
+                    </option>
+
+                    <option value="cpf">
+                        CPF
+                    </option>
+
+                    <option value="email">
+                        E-mail
+                    </option>
+
+                    <option value="aleatoria">
+                        Chave aleatória
+                    </option>
+
                 </select>
 
-                <button type="submit" class="primary-button">
+                <button
+                    type="submit"
+                    class="primary-button"
+                    id="registerButton"
+                >
                     Criar minha conta
                 </button>
 
             </form>
 
+            <p
+                id="message"
+                aria-live="polite"
+            ></p>
+
             <p class="login-link">
                 Já possui uma conta?
-                <a href="index.html">Entrar</a>
+                <a href="login.html">
+                    Entrar
+                </a>
             </p>
-
-            <p id="message"></p>
 
         </div>
 
@@ -104,4 +162,5 @@
     <script src="script.js"></script>
 
 </body>
+
 </html>
