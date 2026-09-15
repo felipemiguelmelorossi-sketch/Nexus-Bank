@@ -9,7 +9,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Entrar — BancoPix</title>
+    <title>Entrar — Nexus Bank</title>
 
     <link rel="stylesheet" href="style.css">
 
@@ -17,47 +17,64 @@
     <script src="supabase.js"></script>
 </head>
 
-<body>
+<body class="auth-page">
 
     <main class="auth-container">
 
         <div class="auth-card">
 
-            <div class="logo">
-                Banco<span>Pix</span>
+            <div class="brand">
+                <span>Nexus</span> Bank
             </div>
 
-            <h1>Bem-vindo de volta</h1>
+            <div class="auth-header">
 
-            <p class="subtitle">
-                Entre na sua conta BancoPix.
-            </p>
+                <h1>
+                    Entre na sua conta
+                </h1>
+
+                <p>
+                    Acesse sua conta Nexus Bank.
+                </p>
+
+            </div>
+
 
             <form id="loginForm">
 
-                <label for="email">
-                    E-mail
-                </label>
+                <div class="field">
 
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="seu@email.com"
-                    autocomplete="email"
-                    required
-                >
+                    <label for="email">
+                        E-mail
+                    </label>
 
-                <label for="senha">
-                    Senha
-                </label>
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="seu@email.com"
+                        autocomplete="email"
+                        required
+                    >
 
-                <input
-                    type="password"
-                    id="senha"
-                    placeholder="Digite sua senha"
-                    autocomplete="current-password"
-                    required
-                >
+                </div>
+
+
+                <div class="field">
+
+                    <label for="senha">
+                        Senha
+                    </label>
+
+                    <input
+                        type="password"
+                        id="senha"
+                        placeholder="Sua senha"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
 
                 <button
                     type="submit"
@@ -69,23 +86,170 @@
 
             </form>
 
+
             <p
                 id="loginMessage"
+                class="form-message"
                 aria-live="polite"
             ></p>
 
-            <p class="login-link">
-                Ainda não possui uma conta?
+
+            <div class="auth-footer">
+
+                <span>
+                    Ainda não possui uma conta?
+                </span>
+
                 <a href="cadastro.html">
                     Criar conta
                 </a>
-            </p>
+
+            </div>
 
         </div>
 
     </main>
 
-    <script src="script.js"></script>
+
+    <script>
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        const loginMessage =
+            document.getElementById("loginMessage");
+
+        const loginButton =
+            document.getElementById("loginButton");
+
+
+        loginForm.addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+
+                const email =
+                    document
+                        .getElementById("email")
+                        .value
+                        .trim();
+
+
+                const senha =
+                    document
+                        .getElementById("senha")
+                        .value;
+
+
+                if (!email || !senha) {
+
+                    mostrarMensagem(
+                        "Preencha o e-mail e a senha.",
+                        false
+                    );
+
+                    return;
+
+                }
+
+
+                loginButton.disabled = true;
+
+                loginButton.textContent =
+                    "Entrando";
+
+
+                try {
+
+                    const {
+                        data,
+                        error
+                    } =
+                        await supabaseClient.auth
+                            .signInWithPassword({
+
+                                email: email,
+
+                                password: senha
+
+                            });
+
+
+                    if (error) {
+                        throw error;
+                    }
+
+
+                    if (!data.user) {
+
+                        throw new Error(
+                            "Não foi possível entrar."
+                        );
+
+                    }
+
+
+                    mostrarMensagem(
+                        "Login realizado com sucesso.",
+                        true
+                    );
+
+
+                    setTimeout(
+                        function() {
+
+                            window.location.href =
+                                "index.html";
+
+                        },
+                        600
+                    );
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Erro no login:",
+                        error
+                    );
+
+
+                    mostrarMensagem(
+                        traduzirErroSupabase(error),
+                        false
+                    );
+
+
+                    loginButton.disabled =
+                        false;
+
+                    loginButton.textContent =
+                        "Entrar";
+
+                }
+
+            }
+        );
+
+
+        function mostrarMensagem(
+            mensagem,
+            sucesso
+        ) {
+
+            loginMessage.textContent =
+                mensagem;
+
+            loginMessage.className =
+                sucesso
+                    ? "form-message success"
+                    : "form-message error";
+
+        }
+
+    </script>
 
 </body>
 
